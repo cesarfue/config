@@ -7,9 +7,16 @@ return {
 			{ "<leader>,", ":Telescope find_files<CR>", desc = "Find files" },
 			{ "<leader>/", ":Telescope live_grep<CR>", desc = "Live grep" },
 			{ "<leader>sk", ":Telescope keymaps<CR>", desc = "Show Keymaps" },
-			{ "<leader>ss", ":Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
-			{ "<leader>sS", ":Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
+			{ "<leader>sS", ":Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
+			{ "<leader>ss", ":Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
 		},
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					file_ignore_patterns = { "/Library" }, -- Add folders you want to ignore
+				},
+			})
+		end,
 	},
 
 	{

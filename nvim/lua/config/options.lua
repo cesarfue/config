@@ -8,15 +8,14 @@ opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
 opt.smartindent = true
--- opt.autoformat = false
 opt.wrap = false
+opt.confirm = true
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 
 opt.cursorline = true
-
 -- turn on termguicolors for tokyonight colorscheme to work
 -- (have to use iterm2 or any other true color terminal)
 opt.termguicolors = true
@@ -39,3 +38,9 @@ opt.swapfile = false
 opt.list = false
 opt.linebreak = true
 opt.shiftround = true
+opt.mouse = "a"
+opt.pumheight = 10
+opt.pumblend = 10
+opt.showmode = false
+opt.sidescrolloff = 8
+opt.wildmode = "longest:full,full"
