@@ -20,6 +20,7 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				md = { "prettier" },
 			},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable

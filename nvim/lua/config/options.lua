@@ -10,7 +10,7 @@ opt.expandtab = true -- expand tab to spaces
 opt.smartindent = true
 opt.wrap = false
 opt.confirm = true
-
+opt.conceallevel = 2
 -- search settings
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive

@@ -1,5 +1,18 @@
 local map = vim.keymap.set
 
+-- File
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>df",
+	"<cmd>!rm %:p<cr>",
+	{ noremap = true, silent = true, desc = "Delete current file and buffer" }
+)
+
+-- Obsidian
+map("n", "<leader>ot", "<cmd>ObsidianToday<cr>", { desc = "Obsidian today" })
+map("n", "<leader>oc", "<cmd>ObsidianNew<cr>", { desc = "Obsidian new" })
+-- map("n", "<leader>oo", '<cmd>ObsidianNewFromTemplate "Zettelkasten.md"<cr>', { des = "Obsidian new note" })
+
 -- Move Lines
 map("n", "<A-[>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
 map("n", "<A-]>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
@@ -15,8 +28,8 @@ map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
-
+map("n", "<leader>bD", "<cmd>bd<cr>", { desc = "Delete Buffer and Window" })
+map("n", "<leader>bd", "<cmd>bp<bar>sp<bar>bn<bar>bd<cr>", { desc = "Delete buffer" })
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
@@ -57,7 +70,7 @@ map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 -- lazy
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })

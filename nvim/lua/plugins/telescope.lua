@@ -9,6 +9,9 @@ return {
 			{ "<leader>sk", ":Telescope keymaps<CR>", desc = "Show Keymaps" },
 			{ "<leader>sS", ":Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
 			{ "<leader>ss", ":Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
+			{ "<leader>sr", ":Telescope lsp_references<CR>", desc = "Show references" },
+			{ "<leader>Wl", "<cmd>SessionSearch<CR>", desc = "Session search" },
+			{ "<leader>Wd", ":SessionDelete<CR>", desc = "Delete Session" },
 		},
 		config = function()
 			require("telescope").setup({
@@ -28,6 +31,8 @@ return {
 						depth = 5,
 						grouped = false,
 						display_stat = false,
+						select_buffer = true,
+						git_status = true,
 					},
 				},
 			})
