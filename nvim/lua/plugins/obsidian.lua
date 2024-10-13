@@ -17,7 +17,7 @@ return {
 		"nvim-telescope/telescope.nvim",
 	},
 	opts = {
-		dir = "~/vault",
+		dir = "~/OneDrive/vault",
 		-- see below for full list of options 👇
 		-- notes_subdir = "",
 		templates = {
