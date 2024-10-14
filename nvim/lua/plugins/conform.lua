@@ -50,7 +50,7 @@ return {
 			desc = "Re-enable autoformat-on-save",
 		})
 
-		vim.api.nvim_set_keymap("n", "ef", ":FormatDisable<CR>", { noremap = true })
-		vim.api.nvim_set_keymap("n", "Ef", ":FormatEnable<CR>", { noremap = true })
+		vim.api.nvim_set_keymap("n", "<leader>ef", ":FormatDisable<CR>", { noremap = true })
+		vim.api.nvim_set_keymap("n", "<leader>Ef", ":FormatEnable<CR>", { noremap = true })
 	end,
 }
