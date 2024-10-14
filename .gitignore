@@ -21,3 +21,5 @@ VirtualBox
 .gsd-keyboard.settings-ported
 Code/
 github-copilot/
+kitty/kitty.conf.bak
+nvim/lazy-lock.json
