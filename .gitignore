@@ -18,3 +18,6 @@ systemd
 user-dirs.dirs
 user-dirs.locale
 VirtualBox
+.gsd-keyboard.settings-ported
+Code/
+github-copilot/
