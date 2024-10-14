@@ -44,3 +44,5 @@ opt.pumblend = 10
 opt.showmode = false
 opt.sidescrolloff = 8
 opt.wildmode = "longest:full,full"
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

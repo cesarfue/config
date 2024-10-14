@@ -123,3 +123,8 @@ alias light="kitty +kitten themes --reload-in=all Everforest light soft"
 
 # Created by `pipx` on 2024-10-09 15:02:38
 export PATH="$PATH:/Users/cefue/.local/bin"
+export PATH="$PATH:/home/cefuente/.local/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
