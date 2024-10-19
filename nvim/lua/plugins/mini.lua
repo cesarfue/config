@@ -1,6 +1,7 @@
 return {
 	{
 		"echasnovski/mini.surround",
+		event = "VeryLazy",
 		opts = {
 			mappings = {
 				add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -15,6 +16,7 @@ return {
 	},
 	{
 		"echasnovski/mini.pairs",
+		event = "VeryLazy",
 		opts = {
 			modes = { insert = true, command = true, terminal = false },
 			-- skip autopair when next character is one of these
@@ -28,24 +30,5 @@ return {
 			markdown = true,
 		},
 	},
-	{ "echasnovski/mini.ai" },
-	-- {
-	-- 	"echasnovski/mini.comment",
-	-- 	event = "VeryLazy",
-	-- 	opts = {
-	-- 		options = {
-	-- 			custom_commentstring = function()
-	-- 				return require("ts_context_commentstring.internal").calculate_commentstring()
-	-- 					or vim.bo.commentstring
-	-- 			end,
-	-- 		},
-	-- 	},
-	-- },
-	-- {
-	-- 	"JoosepAlviste/nvim-ts-context-commentstring",
-	-- 	lazy = true,
-	-- 	opts = {
-	-- 		enable_autocmd = false,
-	-- 	},
-	-- },
+	{ "echasnovski/mini.ai", event = "VeryLazy" },
 }

@@ -1,8 +1,9 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
+		event = "VeryLazy",
 		tag = "0.1.8",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", event = "VeryLazy" },
 		keys = {
 			{ "<leader>,", ":Telescope find_files<CR>", desc = "Find files" },
 			{ "<leader>/", ":Telescope live_grep<CR>", desc = "Live grep" },
@@ -24,6 +25,7 @@ return {
 
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("telescope").setup({
 				extensions = {

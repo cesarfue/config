@@ -1,9 +1,18 @@
 return {
-	{ "rebelot/kanagawa.nvim" },
-	{ "sainnhe/everforest" },
-	{ "rose-pine/neovim" },
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"sainnhe/everforest",
+		lazy = false,
+		priority = 1000,
+	},
 	{
 		"nvim-lua/plenary.nvim",
+		-- lazy = false,
+		-- priority = 1000,
 		config = function()
 			local function set_colorscheme()
 				if vim.o.background == "light" then

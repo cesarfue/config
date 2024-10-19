@@ -41,7 +41,7 @@ opt.shiftround = true
 opt.mouse = "a"
 opt.pumheight = 10
 opt.pumblend = 10
-opt.showmode = false
+opt.showmode = true
 opt.sidescrolloff = 8
 opt.wildmode = "longest:full,full"
 
