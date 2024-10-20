@@ -23,3 +23,4 @@ Code/
 github-copilot/
 kitty/kitty.conf.bak
 nvim/lazy-lock.json
+.DS_Store
