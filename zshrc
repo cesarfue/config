@@ -114,7 +114,7 @@ alias config=/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
 
 alias mem="leaks --atExit --"
 alias ssh1="ssh debian@192.168.64.8"
-
+alias ssh2="ssh cesar@192.168.1.195"
 
 alias dark="kitty +kitten themes --reload-in=all Kanagawa"
 # alias dark="kitty +kitten themes --reload-in=all Everforest dark soft"
