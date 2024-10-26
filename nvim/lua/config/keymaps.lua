@@ -1,5 +1,13 @@
 local map = vim.keymap.set
 
+vim.g.tmux_resizer_no_mappings = 1
+
+-- Tmux resize mappings
+map("n", "<A-Left>", "<cmd>TmuxResizeLeft<cr>", { silent = true, desc = "Resize Tmux pane left" })
+map("n", "<A-Down>", "<cmd>TmuxResizeDown<cr>", { silent = true, desc = "Resize Tmux pane down" })
+map("n", "<A-Up>", "<cmd>TmuxResizeUp<cr>", { silent = true, desc = "Resize Tmux pane up" })
+map("n", "<A-Right>", "<cmd>TmuxResizeRight<cr>", { silent = true, desc = "Resize Tmux pane right" })
+
 -- File
 vim.api.nvim_set_keymap(
 	"n",
