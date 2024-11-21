@@ -47,6 +47,7 @@ return {
 				"bash",
 				"cpp",
 				"cmake",
+				"python",
 			},
 			incremental_selection = {
 				enable = true,

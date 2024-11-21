@@ -4,9 +4,13 @@ vim.g.tmux_resizer_no_mappings = 1
 
 -- Tmux resize mappings
 map("n", "<A-Left>", "<cmd>TmuxResizeLeft<cr>", { silent = true, desc = "Resize Tmux pane left" })
+map("n", "<A-h>", "<cmd>TmuxResizeLeft<cr>", { silent = true, desc = "Resize Tmux pane left" })
 map("n", "<A-Down>", "<cmd>TmuxResizeDown<cr>", { silent = true, desc = "Resize Tmux pane down" })
+map("n", "<A-j>", "<cmd>TmuxResizeDown<cr>", { silent = true, desc = "Resize Tmux pane down" })
 map("n", "<A-Up>", "<cmd>TmuxResizeUp<cr>", { silent = true, desc = "Resize Tmux pane up" })
+map("n", "<A-k>", "<cmd>TmuxResizeUp<cr>", { silent = true, desc = "Resize Tmux pane up" })
 map("n", "<A-Right>", "<cmd>TmuxResizeRight<cr>", { silent = true, desc = "Resize Tmux pane right" })
+map("n", "<A-l>", "<cmd>TmuxResizeRight<cr>", { silent = true, desc = "Resize Tmux pane right" })
 
 -- File
 vim.api.nvim_set_keymap(
@@ -31,7 +35,9 @@ map("v", "<A-]>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
 -- buffers
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+map("n", "<S-Left>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
@@ -110,7 +116,7 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- windows
 map("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>_", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
