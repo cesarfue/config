@@ -46,3 +46,5 @@ opt.sidescrolloff = 8
 opt.wildmode = "longest:full,full"
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+vim.o.undofile = true
