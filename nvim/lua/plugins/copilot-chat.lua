@@ -1,7 +1,7 @@
 return {
 	"CopilotC-Nvim/CopilotChat.nvim",
 	event = "VeryLazy",
-	branch = "canary",
+	branch = "main",
 	cmd = "CopilotChat",
 	opts = function()
 		local user = vim.env.USER or "User"
@@ -14,6 +14,7 @@ return {
 			window = {
 				width = 0.4,
 			},
+			chat_autocomplete = true,
 			selection = function(source)
 				local select = require("CopilotChat.select")
 				return select.visual(source) or select.buffer(source)
@@ -50,23 +51,5 @@ return {
 			desc = "Quick Chat (CopilotChat)",
 			mode = { "n", "v" },
 		},
-		-- Show help actions with telescope
-		-- { "<leader>ad", M.pick("help"), desc = "Diagnostic Help (CopilotChat)", mode = { "n", "v" } },
-		-- -- Show prompts actions with telescope
-		-- { "<leader>ap", M.pick("prompt"), desc = "Prompt Actions (CopilotChat)", mode = { "n", "v" } },
 	},
-	config = function(_, opts)
-		local chat = require("CopilotChat")
-		require("CopilotChat.integrations.cmp").setup()
-
-		vim.api.nvim_create_autocmd("BufEnter", {
-			pattern = "copilot-chat",
-			callback = function()
-				vim.opt_local.relativenumber = false
-				vim.opt_local.number = false
-			end,
-		})
-
-		chat.setup(opts)
-	end,
 }

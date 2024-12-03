@@ -4,10 +4,10 @@ return {
 	event = "VeryLazy",
 	main = "ibl",
 	opts = {
-		indent = {
-			char = "│",
-			tab_char = "│",
-		},
+		-- indent = {
+		-- 	char = "│",
+		-- 	tab_char = "│",
+		-- },
 		scope = { show_start = false, show_end = false },
 		exclude = {
 			filetypes = {
