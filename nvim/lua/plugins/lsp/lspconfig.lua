@@ -86,119 +86,119 @@ return {
 					capabilities = capabilities,
 				})
 			end,
-			["svelte"] = function()
-				-- configure svelte server
-				lspconfig["svelte"].setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							pattern = { "*.js", "*.ts" },
-							callback = function(ctx)
-								-- Here use ctx.match instead of ctx.file
-								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-							end,
-						})
-					end,
-				})
-			end,
-			["graphql"] = function()
-				-- configure graphql language server
-				lspconfig["graphql"].setup({
-					capabilities = capabilities,
-					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["emmet_ls"] = function()
-				-- configure emmet language server
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
-					},
-				})
-			end,
-			["lua_ls"] = function()
-				-- configure lua server (with special settings)
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							-- make the language server recognize "vim" global
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
-			end,
-			["ts_ls"] = function()
-				lspconfig["ts_ls"].setup({
-					capabilities = capabilities,
-					-- Enable more detailed TypeScript server diagnostics
-					settings = {
-						javascriptreact = {
-							diagnostics = {
-								-- Enable all TypeScript diagnostics
-								enable = true,
-								-- Disable specific diagnostics if needed
-								-- disable = {},
-							},
-							-- Optional: Suggest imports automatically
-							preferTypeQualificationForParameterType = true,
-							-- Optional: Enable specific experimental features
-							experimental = {
-								strictParameterNullChecks = true,
-							},
-						},
-					},
-					-- Improve error handling and visibility
-					on_attach = function(client, bufnr)
-						-- Default on_attach logic
-						client.server_capabilities.documentFormattingProvider = false
-						client.server_capabilities.documentRangeFormattingProvider = false
+			-- ["svelte"] = function()
+			-- 	-- configure svelte server
+			-- 	lspconfig["svelte"].setup({
+			-- 		capabilities = capabilities,
+			-- 		on_attach = function(client, bufnr)
+			-- 			vim.api.nvim_create_autocmd("BufWritePost", {
+			-- 				pattern = { "*.js", "*.ts" },
+			-- 				callback = function(ctx)
+			-- 					-- Here use ctx.match instead of ctx.file
+			-- 					client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+			-- 				end,
+			-- 			})
+			-- 		end,
+			-- 	})
+			-- end,
+			-- ["graphql"] = function()
+			-- 	-- configure graphql language server
+			-- 	lspconfig["graphql"].setup({
+			-- 		capabilities = capabilities,
+			-- 		filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+			-- 	})
+			-- end,
+			-- ["emmet_ls"] = function()
+			-- 	-- configure emmet language server
+			-- 	lspconfig["emmet_ls"].setup({
+			-- 		capabilities = capabilities,
+			-- 		filetypes = {
+			-- 			"html",
+			-- 			"typescriptreact",
+			-- 			"javascriptreact",
+			-- 			"css",
+			-- 			"sass",
+			-- 			"scss",
+			-- 			"less",
+			-- 			"svelte",
+			-- 		},
+			-- 	})
+			-- end,
+			-- ["lua_ls"] = function()
+			-- 	-- configure lua server (with special settings)
+			-- 	lspconfig["lua_ls"].setup({
+			-- 		capabilities = capabilities,
+			-- 		settings = {
+			-- 			Lua = {
+			-- 				-- make the language server recognize "vim" global
+			-- 				diagnostics = {
+			-- 					globals = { "vim" },
+			-- 				},
+			-- 				completion = {
+			-- 					callSnippet = "Replace",
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	})
+			-- end,
+			-- ["ts_ls"] = function()
+			-- 	lspconfig["ts_ls"].setup({
+			-- 		capabilities = capabilities,
+			-- 		-- Enable more detailed TypeScript server diagnostics
+			-- 		settings = {
+			-- 			javascriptreact = {
+			-- 				diagnostics = {
+			-- 					-- Enable all TypeScript diagnostics
+			-- 					enable = true,
+			-- 					-- Disable specific diagnostics if needed
+			-- 					-- disable = {},
+			-- 				},
+			-- 				-- Optional: Suggest imports automatically
+			-- 				preferTypeQualificationForParameterType = true,
+			-- 				-- Optional: Enable specific experimental features
+			-- 				experimental = {
+			-- 					strictParameterNullChecks = true,
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 		-- Improve error handling and visibility
+			-- 		on_attach = function(client, bufnr)
+			-- 			-- Default on_attach logic
+			-- 			client.server_capabilities.documentFormattingProvider = false
+			-- 			client.server_capabilities.documentRangeFormattingProvider = false
+			--
+			-- 			-- Additional diagnostic configuration
+			-- 			vim.diagnostic.config({
+			-- 				virtual_text = {
+			-- 					prefix = "■", -- Could be '●', '▎', 'x'
+			-- 					source = "if_many", -- Or "if_many"
+			-- 				},
+			-- 				severity_sort = true,
+			-- 				float = {
+			-- 					source = "if_many", -- Or "if_many"
+			-- 					border = "rounded",
+			-- 				},
+			-- 			})
+			-- 		end,
+			-- 	})
+			-- end,
 
-						-- Additional diagnostic configuration
-						vim.diagnostic.config({
-							virtual_text = {
-								prefix = "■", -- Could be '●', '▎', 'x'
-								source = "if_many", -- Or "if_many"
-							},
-							severity_sort = true,
-							float = {
-								source = "if_many", -- Or "if_many"
-								border = "rounded",
-							},
-						})
-					end,
-				})
-			end,
-
-			["eslint"] = function()
-				lspconfig.eslint.setup({
-					capabilities = capabilities,
-					settings = {
-						-- Specify the ESLint config location if needed
-						workingDirectory = { mode = "location" },
-					},
-					on_attach = function(client, bufnr)
-						-- Auto-fix ESLint issues on save
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							command = "EslintFixAll",
-						})
-					end,
-				})
-			end,
+			-- ["eslint"] = function()
+			-- 	lspconfig.eslint.setup({
+			-- 		capabilities = capabilities,
+			-- 		settings = {
+			-- 			-- Specify the ESLint config location if needed
+			-- 			workingDirectory = { mode = "location" },
+			-- 		},
+			-- 		on_attach = function(client, bufnr)
+			-- 			-- Auto-fix ESLint issues on save
+			-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+			-- 				buffer = bufnr,
+			-- 				command = "EslintFixAll",
+			-- 			})
+			-- 		end,
+			-- 	})
+			-- end,
 		})
 	end,
 }
