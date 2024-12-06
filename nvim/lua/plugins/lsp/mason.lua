@@ -41,6 +41,8 @@ return {
 				"clangd",
 				"dockerls",
 				"marksman",
+				"ts_ls",
+				"eslint",
 			},
 		})
 

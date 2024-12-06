@@ -7,6 +7,7 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
+bindkey '$' autosuggest-accept
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

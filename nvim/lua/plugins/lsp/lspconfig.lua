@@ -141,6 +141,64 @@ return {
 					},
 				})
 			end,
+			["ts_ls"] = function()
+				lspconfig["ts_ls"].setup({
+					capabilities = capabilities,
+					-- Enable more detailed TypeScript server diagnostics
+					settings = {
+						javascriptreact = {
+							diagnostics = {
+								-- Enable all TypeScript diagnostics
+								enable = true,
+								-- Disable specific diagnostics if needed
+								-- disable = {},
+							},
+							-- Optional: Suggest imports automatically
+							preferTypeQualificationForParameterType = true,
+							-- Optional: Enable specific experimental features
+							experimental = {
+								strictParameterNullChecks = true,
+							},
+						},
+					},
+					-- Improve error handling and visibility
+					on_attach = function(client, bufnr)
+						-- Default on_attach logic
+						client.server_capabilities.documentFormattingProvider = false
+						client.server_capabilities.documentRangeFormattingProvider = false
+
+						-- Additional diagnostic configuration
+						vim.diagnostic.config({
+							virtual_text = {
+								prefix = "■", -- Could be '●', '▎', 'x'
+								source = "if_many", -- Or "if_many"
+							},
+							severity_sort = true,
+							float = {
+								source = "if_many", -- Or "if_many"
+								border = "rounded",
+							},
+						})
+					end,
+				})
+			end,
+
+			["eslint"] = function()
+				lspconfig.eslint.setup({
+					capabilities = capabilities,
+					settings = {
+						-- Specify the ESLint config location if needed
+						workingDirectory = { mode = "location" },
+					},
+					on_attach = function(client, bufnr)
+						-- Auto-fix ESLint issues on save
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
+					end,
+				})
+			end,
 		})
 	end,
 }
