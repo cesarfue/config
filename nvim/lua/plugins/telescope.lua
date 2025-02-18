@@ -3,9 +3,14 @@ return {
 		"nvim-telescope/telescope.nvim",
 		event = "VeryLazy",
 		tag = "0.1.8",
-		dependencies = { "nvim-lua/plenary.nvim", event = "VeryLazy" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
+			"ThePrimeagen/harpoon",
+			event = "VeryLazy",
+		},
 		keys = {
-			{ "<leader>,", ":Telescope find_files<CR>", desc = "Find files" },
+			{ "<leader><leader>", ":Telescope find_files<CR>", desc = "Find files" },
 			{ "<leader>/", ":Telescope live_grep<CR>", desc = "Live grep" },
 			{ "<leader>sk", ":Telescope keymaps<CR>", desc = "Show Keymaps" },
 			{ "<leader>sS", ":Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
@@ -22,16 +27,6 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"nvim-telescope/telescope-frecency.nvim",
-	-- 	config = function()
-	-- 		require("telescope").load_extension("frecency")
-	-- 	end,
-	-- 	keys = {
-	-- 		{ "<leader><leader>", ":Telescope frecency workspace=CWD<CR>", desc = "Frequency" },
-	-- 	},
-	-- },
-
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
 		event = "VeryLazy",
@@ -39,7 +34,7 @@ return {
 			require("telescope").setup({
 				extensions = {
 					file_browser = {
-						depth = 5,
+						depth = 7,
 						grouped = false,
 						display_stat = false,
 						select_buffer = true,
@@ -49,7 +44,7 @@ return {
 			})
 		end,
 		keys = {
-			{ "<space><space>", ":Telescope file_browser<CR>", desc = "File browser" },
+			{ "<space>,", ":Telescope file_browser<CR>", desc = "File browser" },
 		},
 	},
 }
