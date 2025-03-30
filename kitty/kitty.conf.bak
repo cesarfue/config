@@ -18,7 +18,7 @@ bold_italic_font JetBrainsMono Nerd Font Mono Extra Bold Italic
 macos_option_as_alt left 
 
 
-font_size 16.0
+font_size 18.0
 # map ctrl+shift+left resize_window narrower
 # map ctrl+shift+right resize_window wider
 # map ctrl+shift+up resize_window taller
@@ -2532,6 +2532,6 @@ font_size 16.0
 
 
 # BEGIN_KITTY_THEME
-# Kanagawa
+# Everforest Light Soft
 include current-theme.conf
 # END_KITTY_THEME
