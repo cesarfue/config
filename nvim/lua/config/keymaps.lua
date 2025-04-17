@@ -2,6 +2,9 @@ local map = vim.keymap.set
 
 vim.g.tmux_resizer_no_mappings = 1
 
+map("n", "<leader>yy", "<cmd>Yazi<cr>", { silent = true, desc = "Open Yazi" })
+map("n", "<leader>oo", "<cmd>Oil<cr>", { silent = true, desc = "Open Oil" })
+
 -- Tmux resize mappings
 map("n", "<A-Left>", "<cmd>TmuxResizeLeft<cr>", { silent = true, desc = "Resize Tmux pane left" })
 map("n", "<A-h>", "<cmd>TmuxResizeLeft<cr>", { silent = true, desc = "Resize Tmux pane left" })
