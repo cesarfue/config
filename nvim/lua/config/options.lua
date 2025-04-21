@@ -1,5 +1,6 @@
 local opt = vim.opt
 
+vim.env.JAVA_HOME = "/opt/homebrew/opt/openjdk@21"
 opt.relativenumber = true
 opt.number = true
 
