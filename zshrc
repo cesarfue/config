@@ -1,4 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
+export JAVA_HOME=~/apps/java21
+export PATH=$JAVA_HOME/bin:$PATH
+
 ZSH_THEME="robbyrussell"
 plugins=(
   git
