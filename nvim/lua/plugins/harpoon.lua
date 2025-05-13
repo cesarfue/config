@@ -5,7 +5,7 @@ return {
 	lazy = false,
 	config = function()
 		local harpoon_ui = require("harpoon.ui")
-		-- local harpoon_mark = require("harpoon.mark")
+		local harpoon_mark = require("harpoon.mark")
 
 		-- Key mappings
 		vim.keymap.set("n", "<leader>pa", function()

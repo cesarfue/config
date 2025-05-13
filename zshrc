@@ -44,3 +44,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
