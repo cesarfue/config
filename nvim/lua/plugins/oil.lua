@@ -6,7 +6,7 @@ return {
 		use_default_keymaps = false,
 		keymaps = {
 			["g?"] = { "actions.show_help", mode = "n" },
-			["<leader><CR>"] = { "actions.select", mode = "n" },
+			["<CR>"] = { "actions.select", mode = "n" },
 			["<leader>o|>"] = { "actions.select", opts = { vertical = true } },
 			["<leader>o->"] = { "actions.select", opts = { horizontal = true } },
 			-- ["<leader>os"] = { "actions.select", opts = { tab = true } },
