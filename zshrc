@@ -1,5 +1,4 @@
 export ZSH="$HOME/.oh-my-zsh"
-export JAVA_HOME=~/apps/java21
 export PATH=$JAVA_HOME/bin:$PATH
 
 ZSH_THEME="robbyrussell"
@@ -10,7 +9,7 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-export JAVA_HOME="/opt/homebrew/opt/openjdk@21/bin/java"
+export JAVA_HOME="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home"
 
 bindkey '&' autosuggest-accept
 

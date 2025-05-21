@@ -4,7 +4,8 @@ return {
 	ft = { "java" }, -- Add any additional Java filetypes you use
 	opts = function()
 		local cmd = { vim.fn.exepath("jdtls") }
-
+		table.insert(cmd, "-Dlog.protocol=false")
+		table.insert(cmd, "-Dlog.level=OFF")
 		-- Check if mason.nvim is available
 		local has_mason = pcall(require, "mason-registry")
 		if has_mason then
