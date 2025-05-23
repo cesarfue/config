@@ -1,5 +1,4 @@
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=$JAVA_HOME/bin:$PATH
 
 ZSH_THEME="robbyrussell"
 plugins=(
@@ -9,7 +8,13 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-export JAVA_HOME="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home"
+if [[ $OSTYPE == "darwin"* ]]; then
+  export JAVA_HOME="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home"
+elif [[ $OSTYPE == "linux-gnu"* ]]; then
+  export JAVA_HOME="~/apps/java21/"
+fi
+
+export PATH=$JAVA_HOME/bin:$PATH
 
 bindkey '&' autosuggest-accept
 
@@ -30,10 +35,6 @@ alias arm="env /usr/bin/arch -arm64 /bin/zsh --login"
 alias intel="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias config=/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
 alias mem="leaks --atExit --"
-alias ssh1="ssh debian@192.168.64.8"
-alias ssh2="ssh cesar@192.168.1.195"
-alias dark="kitty +kitten themes --reload-in=all Kanagawa"
-alias light="kitty +kitten themes --reload-in=all Everforest light soft"
 
 export PATH="$PATH:/Users/cefue/.local/bin"
 export PATH="$PATH:/home/cefuente/.local/bin"
