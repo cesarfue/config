@@ -11,10 +11,9 @@ source $ZSH/oh-my-zsh.sh
 if [[ $OSTYPE == "darwin"* ]]; then
   export JAVA_HOME="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home"
 elif [[ $OSTYPE == "linux-gnu"* ]]; then
-  export JAVA_HOME="~/apps/java21/"
+  export JAVA_HOME="$HOME/.local"
 fi
 
-export PATH=$JAVA_HOME/bin:$PATH
 
 bindkey '&' autosuggest-accept
 
@@ -45,6 +44,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 
+export PATH=$JAVA_HOME/bin:$PATH
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
