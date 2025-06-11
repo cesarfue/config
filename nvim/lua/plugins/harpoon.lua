@@ -17,12 +17,12 @@ return {
 		end, { desc = "Show Harpoon menu" })
 
 		vim.keymap.set("n", "<C-n>", function()
-			harpoon:list():prev()
-		end, { desc = "Previous Harpoon file" })
-
-		vim.keymap.set("n", "<C-p>", function()
 			harpoon:list():next()
 		end, { desc = "Next Harpoon file" })
+
+		vim.keymap.set("n", "<C-p>", function()
+			harpoon:list():prev()
+		end, { desc = "Previous Harpoon file" })
 
 		vim.keymap.set("n", "<leader>p1", function()
 			harpoon:list():select(1)
