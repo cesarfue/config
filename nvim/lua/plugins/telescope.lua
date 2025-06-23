@@ -22,7 +22,7 @@ return {
 		config = function()
 			require("telescope").setup({
 				defaults = {
-					file_ignore_patterns = { "/Library", "node_modules" }, -- Add folders you want to ignore
+					file_ignore_patterns = { "/Library", "node_modules", "var", "vendor" }, -- Add folders you want to ignore
 				},
 			})
 		end,

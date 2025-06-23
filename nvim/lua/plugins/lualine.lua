@@ -10,10 +10,9 @@ return {
 	opts = {
 		sections = {
 			-- add to section of your choice
-			lualine_c = {
-				{ "macro_recording", "%S" },
-				{ "filename", path = 1 },
-			},
+			lualine_a = { "mode" },
+			lualine_b = { "filename" },
+			lualine_c = { "branch", "diff", "diagnostics" },
 		},
 	},
 }
