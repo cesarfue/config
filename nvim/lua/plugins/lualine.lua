@@ -11,8 +11,13 @@ return {
 		sections = {
 			-- add to section of your choice
 			lualine_a = { "mode" },
-			lualine_b = { "filename" },
-			lualine_c = { "branch", "diff", "diagnostics" },
+			lualine_b = {
+				{
+					"filename",
+					path = 1,
+				},
+			},
+			-- lualine_c = { "branch", "diff", "diagnostics" },
 		},
 	},
 }
