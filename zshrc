@@ -3,8 +3,8 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(
   git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  # zsh-syntax-highlighting
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -48,4 +48,4 @@ export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH=$JAVA_HOME/bin:$PATH
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+alias makenode="docker exec -it --user root bosf5_node bash"
