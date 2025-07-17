@@ -17,10 +17,10 @@ map("n", "<A-l>", "<cmd>TmuxResizeRight<cr>", { silent = true, desc = "Resize Tm
 
 -- File
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>df",
-	"<cmd>!rm %:p<cr>",
-	{ noremap = true, silent = true, desc = "Delete current file and buffer" }
+  "n",
+  "<leader>df",
+  "<cmd>!rm %:p<cr>",
+  { noremap = true, silent = true, desc = "Delete current file and buffer" }
 )
 
 -- Obsidian
@@ -53,10 +53,10 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsea
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map(
-	"n",
-	"<leader>ur",
-	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	{ desc = "Redraw / Clear hlsearch / Diff Update" }
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -100,11 +100,11 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	severity = severity and vim.diagnostic.severity[severity] or nil
-	return function()
-		go({ severity = severity })
-	end
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -131,3 +131,33 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- Bookmark keymaps for marks.nvim
+-- Set bookmarks with <leader>b + number
+map('n', '<leader>b1', ':lua require("marks").set_bookmark1()<CR>', { desc = "Set bookmark 1" })
+map('n', '<leader>b2', ':lua require("marks").set_bookmark2()<CR>', { desc = "Set bookmark 2" })
+map('n', '<leader>b3', ':lua require("marks").set_bookmark3()<CR>', { desc = "Set bookmark 3" })
+map('n', '<leader>b4', ':lua require("marks").set_bookmark4()<CR>', { desc = "Set bookmark 4" })
+map('n', '<leader>b5', ':lua require("marks").set_bookmark5()<CR>', { desc = "Set bookmark 5" })
+map('n', '<leader>b6', ':lua require("marks").set_bookmark6()<CR>', { desc = "Set bookmark 6" })
+map('n', '<leader>b7', ':lua require("marks").set_bookmark7()<CR>', { desc = "Set bookmark 7" })
+map('n', '<leader>b8', ':lua require("marks").set_bookmark8()<CR>', { desc = "Set bookmark 8" })
+map('n', '<leader>b9', ':lua require("marks").set_bookmark9()<CR>', { desc = "Set bookmark 9" })
+map('n', '<leader>b0', ':lua require("marks").set_bookmark0()<CR>', { desc = "Set bookmark 0" })
+
+-- Go to bookmarks with <leader> + number
+map('n', '<leader>1', ':lua require("marks").next_bookmark1()<CR>', { desc = "Go to bookmark 1" })
+map('n', '<leader>2', ':lua require("marks").next_bookmark2()<CR>', { desc = "Go to bookmark 2" })
+map('n', '<leader>3', ':lua require("marks").next_bookmark3()<CR>', { desc = "Go to bookmark 3" })
+map('n', '<leader>4', ':lua require("marks").next_bookmark4()<CR>', { desc = "Go to bookmark 4" })
+map('n', '<leader>5', ':lua require("marks").next_bookmark5()<CR>', { desc = "Go to bookmark 5" })
+map('n', '<leader>6', ':lua require("marks").next_bookmark6()<CR>', { desc = "Go to bookmark 6" })
+map('n', '<leader>7', ':lua require("marks").next_bookmark7()<CR>', { desc = "Go to bookmark 7" })
+map('n', '<leader>8', ':lua require("marks").next_bookmark8()<CR>', { desc = "Go to bookmark 8" })
+map('n', '<leader>9', ':lua require("marks").next_bookmark9()<CR>', { desc = "Go to bookmark 9" })
+map('n', '<leader>0', ':lua require("marks").next_bookmark0()<CR>', { desc = "Go to bookmark 0" })
+map('n', '<C-n>', ':lua require("marks").next_bookmark()<CR>', { desc = "Next bookmark" })
+map('n', '<C-p>', ':lua require("marks").prev_bookmark()<CR>', { desc = "Previous bookmark" })
+map('n', '<leader>bd', ':lua require("marks").delete_bookmark()<CR>', { desc = "Delete bookmark" })
+map('n', '<leader>ba', ':lua require("marks").delete_buf()<CR>', { desc = "Delete all bookmarks in buffer" })
+map('n', '<leader>bl', ':lua require("marks").bookmark_toggle()<CR>', { desc = "List bookmarks" })
