@@ -1,0 +1,42 @@
+<keymap version="1" name="GNOME copy" parent="Default for GNOME">
+  <action id="Arrangement.Alias.Rule.Match.Condition.Move.Down" />
+  <action id="Arrangement.Rule.Group.Condition.Move.Down" />
+  <action id="Arrangement.Rule.Group.Condition.Move.Up" />
+  <action id="Arrangement.Rule.Match.Condition.Move.Down" />
+  <action id="Arrangement.Rule.Match.Condition.Move.Up" />
+  <action id="CollapseAllRegions">
+    <keyboard-shortcut first-keystroke="shift ctrl subtract" />
+  </action>
+  <action id="CollapsiblePanel-toggle" />
+  <action id="Console.TableResult.ColumnVisibility" />
+  <action id="ExpandAllRegions">
+    <keyboard-shortcut first-keystroke="shift ctrl add" />
+  </action>
+  <action id="MethodDown" />
+  <action id="MethodUp" />
+  <action id="MoveLineDown">
+    <keyboard-shortcut first-keystroke="alt down" />
+  </action>
+  <action id="MoveLineUp">
+    <keyboard-shortcut first-keystroke="alt up" />
+  </action>
+  <action id="QuickPreview" />
+  <action id="ShowContent" />
+  <action id="ShowSearchHistory" />
+  <action id="SplitChooser.SplitCenter" />
+  <action id="TransparentLeaderAction">
+    <keyboard-shortcut first-keystroke="space" />
+  </action>
+  <action id="UsageView.ShowRecentFindUsages" />
+  <action id="ZoomInIdeAction">
+    <keyboard-shortcut first-keystroke="shift ctrl alt equals" />
+    <keyboard-shortcut first-keystroke="shift ctrl equals" />
+  </action>
+  <action id="ZoomOutIdeAction">
+    <keyboard-shortcut first-keystroke="shift ctrl alt minus" />
+    <keyboard-shortcut first-keystroke="shift ctrl minus" />
+  </action>
+  <action id="flash.search">
+    <keyboard-shortcut first-keystroke="s" />
+  </action>
+</keymap>
