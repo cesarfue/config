@@ -4,36 +4,140 @@
   <action id="Arrangement.Rule.Group.Condition.Move.Up" />
   <action id="Arrangement.Rule.Match.Condition.Move.Down" />
   <action id="Arrangement.Rule.Match.Condition.Move.Up" />
+  <action id="CallHierarchy">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="h" />
+  </action>
+  <action id="ChangesView.SetDefault" />
+  <action id="CodeCompletion" />
   <action id="CollapseAllRegions">
     <keyboard-shortcut first-keystroke="shift ctrl subtract" />
   </action>
+  <action id="CollapseExpandableComponent">
+    <keyboard-shortcut first-keystroke="ctrl subtract" />
+    <keyboard-shortcut first-keystroke="ctrl minus" />
+  </action>
+  <action id="CollapseSelection" />
   <action id="CollapsiblePanel-toggle" />
   <action id="Console.TableResult.ColumnVisibility" />
+  <action id="Console.TableResult.EditValueMaximized">
+    <keyboard-shortcut first-keystroke="shift alt enter" />
+  </action>
+  <action id="DatabaseView.PropertiesAction" />
+  <action id="EditSource">
+    <keyboard-shortcut first-keystroke="shift enter" />
+  </action>
+  <action id="EditorChooseLookupItemDot" />
+  <action id="EditorDownWithSelection" />
+  <action id="EditorStartNewLine" />
+  <action id="EditorUpWithSelection" />
   <action id="ExpandAllRegions">
     <keyboard-shortcut first-keystroke="shift ctrl add" />
   </action>
-  <action id="MethodDown" />
-  <action id="MethodUp" />
+  <action id="ExpandExpandableComponent">
+    <keyboard-shortcut first-keystroke="ctrl add" />
+    <keyboard-shortcut first-keystroke="ctrl equals" />
+  </action>
+  <action id="FindUsages">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="f" />
+  </action>
+  <action id="FindUsagesInFile">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="u" />
+  </action>
+  <action id="GotoClass">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="c" />
+  </action>
+  <action id="GotoDeclaration">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="d" />
+  </action>
+  <action id="GotoFile">
+    <keyboard-shortcut first-keystroke="ctrl space" />
+  </action>
+  <action id="GotoImplementation">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="i" />
+  </action>
+  <action id="GotoLine" />
+  <action id="GotoRow" />
+  <action id="GotoSymbol">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="s" />
+  </action>
+  <action id="GotoTypeDeclaration">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="shift d" />
+  </action>
+  <action id="Graph.ZoomIn">
+    <keyboard-shortcut first-keystroke="equals" />
+  </action>
+  <action id="Graph.ZoomOut">
+    <keyboard-shortcut first-keystroke="minus" />
+  </action>
+  <action id="JumpToLastWindow">
+    <keyboard-shortcut first-keystroke="ctrl escape" />
+  </action>
+  <action id="MethodDown">
+    <keyboard-shortcut first-keystroke="shift down" />
+  </action>
+  <action id="MethodUp">
+    <keyboard-shortcut first-keystroke="shift up" />
+  </action>
   <action id="MoveLineDown">
     <keyboard-shortcut first-keystroke="alt down" />
   </action>
   <action id="MoveLineUp">
     <keyboard-shortcut first-keystroke="alt up" />
   </action>
+  <action id="NextInlineCompletionSuggestionAction" />
+  <action id="OpenInRightSplit">
+    <mouse-shortcut keystroke="alt button1 doubleClick" />
+  </action>
+  <action id="PopupHector">
+    <keyboard-shortcut first-keystroke="shift ctrl alt h" />
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="a" />
+  </action>
+  <action id="PrevInlineCompletionSuggestionAction" />
   <action id="QuickPreview" />
+  <action id="RecentFiles" />
+  <action id="RecentFilesFallback" />
+  <action id="RenameElement">
+    <keyboard-shortcut first-keystroke="ctrl g" second-keystroke="r" />
+  </action>
+  <action id="SaveAll" />
+  <action id="SearchEverywhere">
+    <keyboard-shortcut first-keystroke="ctrl period" />
+  </action>
   <action id="ShowContent" />
   <action id="ShowSearchHistory" />
+  <action id="ShowSettings">
+    <keyboard-shortcut first-keystroke="ctrl e" second-keystroke="k" />
+  </action>
   <action id="SplitChooser.SplitCenter" />
+  <action id="SplitHorizontally">
+    <keyboard-shortcut first-keystroke="ctrl e" second-keystroke="equals" />
+  </action>
+  <action id="SplitVertically">
+    <keyboard-shortcut first-keystroke="ctrl e" second-keystroke="shift back_slash" />
+  </action>
+  <action id="SwitcherIterateItems" />
+  <action id="SwitcherRecentEditedChangedToggleCheckBox" />
+  <action id="Table-selectPreviousRowExtendSelection" />
+  <action id="Terminal.ExpandBlockSelectionAbove" />
   <action id="TransparentLeaderAction">
     <keyboard-shortcut first-keystroke="space" />
   </action>
+  <action id="Tree-selectPreviousExtendSelection" />
+  <action id="UnsplitAll">
+    <keyboard-shortcut first-keystroke="ctrl e" second-keystroke="u" />
+  </action>
   <action id="UsageView.ShowRecentFindUsages" />
+  <action id="Vcs.CombinedDiff.ToggleCollapseBlock" />
+  <action id="VcsShowNextChangeMarker">
+    <keyboard-shortcut first-keystroke="alt close_bracket" />
+  </action>
+  <action id="VcsShowPrevChangeMarker">
+    <keyboard-shortcut first-keystroke="alt open_bracket" />
+  </action>
   <action id="ZoomInIdeAction">
-    <keyboard-shortcut first-keystroke="shift ctrl alt equals" />
     <keyboard-shortcut first-keystroke="shift ctrl equals" />
   </action>
   <action id="ZoomOutIdeAction">
-    <keyboard-shortcut first-keystroke="shift ctrl alt minus" />
     <keyboard-shortcut first-keystroke="shift ctrl minus" />
   </action>
   <action id="flash.search">

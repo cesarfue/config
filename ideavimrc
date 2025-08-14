@@ -1,0 +1,14 @@
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-Left> <c-w>h
+nnoremap <c-Right> <c-w>l
+nnoremap <c-Down> <c-w>j
+nnoremap <c-Up> <c-w>k
+set clipboard+=unnamed
+set clipboard+=ideaput
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)

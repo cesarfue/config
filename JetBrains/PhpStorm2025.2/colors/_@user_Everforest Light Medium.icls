@@ -1,0 +1,13 @@
+<scheme name="_@user_Everforest Light Medium" version="142" parent_scheme="Default">
+  <option name="FONT_SCALE" value="1.0" />
+  <metaInfo>
+    <property name="ide">PhpStorm</property>
+    <property name="ideVersion">2025.2.0.0</property>
+    <property name="originalScheme">Everforest Light Medium</property>
+    <property name="partialSave">true</property>
+    <property name="pluginId">com.github.menwhorust.everforest</property>
+  </metaInfo>
+  <option name="LINE_SPACING" value="1.2" />
+  <option name="EDITOR_FONT_SIZE" value="13" />
+  <option name="EDITOR_FONT_NAME" value="JetBrains Mono" />
+</scheme>
