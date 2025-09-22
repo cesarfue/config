@@ -6,7 +6,14 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-bindkey '&' autosuggest-accept
+o() {
+    if [[ $# -eq 0 ]]; then
+        return 1
+    fi
+    ollama run llama3.1:8b-instruct-q4_0 "$*"
+}
+
+alias O="ollama run llama3.1:8b-instruct-q4_0"
 
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   exec tmux
