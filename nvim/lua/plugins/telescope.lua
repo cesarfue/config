@@ -28,29 +28,14 @@ return {
     config = function()
       require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { "/Library", "node_modules", "var", "vendor" }, -- Add folders you want to ignore
+          file_ignore_patterns = { "/Library", "node_modules", "vendor", ".git" },
         },
-      })
-    end,
-  },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("telescope").setup({
-        extensions = {
-          file_browser = {
-            depth = 7,
-            grouped = false,
-            display_stat = false,
-            select_buffer = true,
-            git_status = true,
+        pickers = {
+          find_files = {
+            hidden = true,
           },
         },
       })
     end,
-    keys = {
-      { "<space>,", ":Telescope file_browser<CR>", desc = "File browser" },
-    },
   },
 }
