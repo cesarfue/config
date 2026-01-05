@@ -54,7 +54,6 @@ jgit
 karabiner
 kitty/current-theme.conf
 kitty/kitty.conf.bak
-kitty/kitty.conf
 kitty/package-lock.json
 kitty/package.json
 simple-update-notifier
@@ -81,3 +80,6 @@ JetBrains/PhpStorm2025.2/early-access-registry.txt
 JetBrains/PhpStorm2025.2/disabled_update.txt
 JetBrains/PhpStorm2025.2/bundled_plugins.txt
 JetBrains/PhpStorm2025.2/codestyles/Default.xml
+uv/uv-receipt.json
+qBittorrent
+gh
