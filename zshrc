@@ -27,3 +27,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+alias m="make"
+
+# Kanata
+alias kr="systemctl --user restart kanata"
+alias ks="systemctl --user stop kanata"
+alias kst="systemctl --user status kanata"

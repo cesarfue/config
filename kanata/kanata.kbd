@@ -1,0 +1,58 @@
+;; Kanata configuration
+;; Toggle on/off: tap Right Alt
+;; Navigation: hold Space + j/k/l/; → Left/Down/Up/Right arrows
+;; Mouse:      hold Win   + j/k/l/; → mouse Left/Down/Up/Right
+;; Home row mods: a/; = Win, s/l = Alt, d/k = Ctrl
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+;; Only intercept the keys we care about. Everything else passes through.
+(defsrc
+  a s d spc j k l ; lmet ralt
+)
+
+(defalias
+  ;; Home row mods — left hand
+  a (tap-hold 200 200 a lmet)
+  s (tap-hold 200 200 s lalt)
+  d (tap-hold 200 200 d lctl)
+
+  ;; Home row mods — right hand
+  ; (tap-hold 200 200 ; rmet)
+  l (tap-hold 200 200 l lalt)
+  k (tap-hold 200 200 k rctl)
+
+  ;; Space: tap = space, hold = activate navigation layer
+  spc (tap-hold 200 200 spc (layer-toggle nav))
+
+  ;; Win: tap = win, hold = activate mouse layer
+  win (tap-hold 200 200 lmet (layer-toggle mouse))
+
+  ;; Right Alt on base layer: tap = disable space layer, hold = right alt
+  dis (tap-hold 200 200 (layer-switch disabled) ralt)
+
+  ;; Right Alt on disabled layer: tap = re-enable space layer, hold = right alt
+  ena (tap-hold 200 200 (layer-switch base) ralt)
+)
+
+;; Active: home row mods + space layer
+(deflayer base
+  @a @s @d @spc j @k @l @; @win @dis
+)
+
+;; Navigation: active while space is held
+(deflayer nav
+  lmet lalt lctl spc left down up rght lmet ralt
+)
+
+;; Mouse: active while win is held
+(deflayer mouse
+  lmet lalt lctl spc (movemouse-accel-left 1 500 1 4) (movemouse-accel-down 1 500 1 4) (movemouse-accel-up 1 500 1 4) (movemouse-accel-right 1 500 1 4) lmet ralt
+)
+
+;; Disabled: everything is passthrough, tap Right Alt to re-enable
+(deflayer disabled
+  a s d spc j k l ; lmet @ena
+)
