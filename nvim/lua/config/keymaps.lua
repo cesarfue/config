@@ -25,8 +25,10 @@ vim.api.nvim_set_keymap(
 
 -- Obsidian
 map("n", "<leader>ot", "<cmd>ObsidianToday<cr>", { desc = "Obsidian today" })
-map("n", "<leader>oc", "<cmd>ObsidianNew<cr>", { desc = "Obsidian new" })
--- map("n", "<leader>oo", '<cmd>ObsidianNewFromTemplate "Zettelkasten.md"<cr>', { des = "Obsidian new note" })
+map("n", "<leader>oc", "<cmd>ObsidianNew<cr>", { desc = "Obsidian new note" })
+map("n", "<leader>oi", "<cmd>ObsidianTemplate<cr>", { desc = "Obsidian insert template" })
+map("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian search" })
+map("n", "<leader>ol", "<cmd>ObsidianBacklinks<cr>", { desc = "Obsidian backlinks" })
 
 -- Move Lines
 map("n", "<A-[>", "<cmd>m .+1<cr>==", { desc = "Move Down" })

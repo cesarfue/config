@@ -14,7 +14,7 @@ opt.expandtab = true -- expand tab to spaces
 opt.smartindent = true
 opt.wrap = false
 opt.confirm = true
-opt.conceallevel = 2
+opt.conceallevel = 1
 -- search settings
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
@@ -49,6 +49,6 @@ opt.showmode = true
 opt.sidescrolloff = 8
 opt.wildmode = "longest:full,full"
 opt.scrolloff = 10
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal"
 vim.o.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
 vim.o.undofile = true
