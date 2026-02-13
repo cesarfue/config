@@ -18,6 +18,26 @@ return {
 			date_format = "%Y/%Y-%m/%Y-%m-%d",
 			time_format = "%H:%M",
 			note_template = "Templates/Zettelkasten.md",
+			substitutions = {
+				yesterday = function()
+					local t = os.time()
+					local fname = vim.fn.expand("%:t:r")
+					local y, m, d = fname:match("^(%d%d%d%d)-(%d%d)-(%d%d)$")
+					if y then
+						t = os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d) })
+					end
+					return os.date("%Y/%Y-%m/%Y-%m-%d", t - 86400)
+				end,
+				tomorrow = function()
+					local t = os.time()
+					local fname = vim.fn.expand("%:t:r")
+					local y, m, d = fname:match("^(%d%d%d%d)-(%d%d)-(%d%d)$")
+					if y then
+						t = os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d) })
+					end
+					return os.date("%Y/%Y-%m/%Y-%m-%d", t + 86400)
+				end,
+			},
 		},
 		daily_notes = {
 			-- Optional, if you keep daily notes in a separate directory.
@@ -49,10 +69,18 @@ return {
 				end,
 				opts = { buffer = true },
 			},
-			-- Smart action: toggle checkbox if present, insert one if line starts with "- ", otherwise follow link.
+			-- Smart action: follow link if cursor is on one, toggle/insert checkbox otherwise.
 			["<cr>"] = {
 				action = function()
 					local line = vim.api.nvim_get_current_line()
+					local col = vim.api.nvim_win_get_cursor(0)[2] + 1 -- 1-indexed
+					-- Check if cursor is on a [[wiki link]]
+					for s, e in line:gmatch("()%[%[.-%]%]()") do
+						if col >= s and col < e then
+							vim.cmd("ObsidianFollowLink")
+							return
+						end
+					end
 					if line:match("^%s*- %[.%]") then
 						require("obsidian").util.toggle_checkbox()
 						return
@@ -62,7 +90,7 @@ return {
 						vim.api.nvim_set_current_line(new)
 						return
 					end
-					return require("obsidian").util.smart_action()
+					vim.cmd("ObsidianFollowLink")
 				end,
 				opts = { buffer = true },
 			},
