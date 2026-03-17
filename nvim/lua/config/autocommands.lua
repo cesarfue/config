@@ -65,13 +65,45 @@ function _G.markdown_foldexpr()
 	return "="
 end
 
+local md_fold_state = {}
+local md_fold_group = augroup("markdown_fold")
+
 vim.api.nvim_create_autocmd("BufEnter", {
-	group = augroup("markdown_fold"),
+	group = md_fold_group,
 	pattern = "*.md",
 	callback = function()
 		vim.opt_local.foldmethod = "expr"
 		vim.opt_local.foldexpr = "v:lua.markdown_foldexpr()"
 		vim.opt_local.foldenable = true
 		vim.opt_local.foldlevel = 99
+		local bufnr = vim.api.nvim_get_current_buf()
+		local closed = md_fold_state[bufnr]
+		if closed and #closed > 0 then
+			vim.schedule(function()
+				local cursor = vim.api.nvim_win_get_cursor(0)
+				for _, lnum in ipairs(closed) do
+					vim.api.nvim_win_set_cursor(0, { lnum, 0 })
+					pcall(vim.cmd, "normal! zc")
+				end
+				pcall(vim.api.nvim_win_set_cursor, 0, cursor)
+			end)
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+	group = md_fold_group,
+	pattern = "*.md",
+	callback = function()
+		if vim.opt_local.foldmethod:get() ~= "expr" then return end
+		local bufnr = vim.api.nvim_get_current_buf()
+		local last_line = vim.api.nvim_buf_line_count(bufnr)
+		local closed = {}
+		for lnum = 1, last_line do
+			if vim.fn.foldclosed(lnum) == lnum then
+				table.insert(closed, lnum)
+			end
+		end
+		md_fold_state[bufnr] = closed
 	end,
 })
