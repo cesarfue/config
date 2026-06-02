@@ -11,6 +11,8 @@ return {
 				"eslint-lsp",
 				"prettier",
 				"lua-language-server",
+				"svelte-language-server",
+				"tailwindcss-language-server",
 			},
 		},
 	},
@@ -23,6 +25,8 @@ return {
 				"ts_ls",
 				"eslint",
 				"lua_ls",
+				"svelte",
+				"tailwindcss",
 			},
 			automatic_installation = true,
 		},
@@ -50,6 +54,12 @@ return {
 			}
 			capabilities.workspace.workspaceFolders = true
 			capabilities.workspace.configuration = true
+
+			-- Svelte
+			lspconfig.svelte.setup({ capabilities = capabilities })
+
+			-- Tailwind CSS
+			lspconfig.tailwindcss.setup({ capabilities = capabilities })
 
 			-- Lua Language Server
 			lspconfig.lua_ls.setup({
