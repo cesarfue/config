@@ -102,6 +102,7 @@ If a piece of information could be useful in a future session but doesn't clearl
 Specific rules live in `~/.claude/rules/`. Reference them here by topic.
 
 - [Commits et utilisation git](rules/git-commits.md)
+- [Implémentation](rules/implementation.md)
 
 ## Self-updating rules — imperative
 
