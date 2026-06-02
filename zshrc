@@ -26,4 +26,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm use default --silent >/dev/null 2>&1
 
+bindkey -v
+export EDITOR=nvim
+
+export MCP_CLIENT_SECRET="***SECRET-REVOQUE***"
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
