@@ -37,16 +37,14 @@ return {
 		dependencies = {
 			"mason.nvim",
 			"mason-lspconfig.nvim",
-			"hrsh7th/cmp-nvim-lsp", -- LSP completion source
+			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
 			local lspconfig = require("lspconfig")
+			local mason_lspconfig = require("mason-lspconfig")
 
-			-- Enhanced capabilities with file watching
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.offsetEncoding = { "utf-16" }
-
-			-- Enable file watching and workspace features
 			capabilities.workspace = capabilities.workspace or {}
 			capabilities.workspace.didChangeWatchedFiles = {
 				dynamicRegistration = true,
@@ -55,30 +53,37 @@ return {
 			capabilities.workspace.workspaceFolders = true
 			capabilities.workspace.configuration = true
 
-			-- Svelte
-			lspconfig.svelte.setup({ capabilities = capabilities })
+			-- mason-lspconfig v2: pass handlers directly to setup().
+			mason_lspconfig.setup({
+			handlers = {
+				function(server_name)
+					lspconfig[server_name].setup({ capabilities = capabilities })
+				end,
+				-- TypeScript: exclude svelte (svelte-language-server handles TS internally)
+				["ts_ls"] = function()
+					lspconfig.ts_ls.setup({
+						capabilities = capabilities,
+						filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+					})
+				end,
+				-- Lua: needs diagnostics globals + workspace config
+				["lua_ls"] = function()
+					lspconfig.lua_ls.setup({
+						capabilities = capabilities,
+						settings = {
+							Lua = {
+								diagnostics = { globals = { "vim" } },
+								workspace = {
+									library = vim.api.nvim_get_runtime_file("", true),
+									checkThirdParty = false,
+								},
+								telemetry = { enable = false },
+							},
+						},
+					})
+				end,
+			}})
 
-			-- Tailwind CSS
-			lspconfig.tailwindcss.setup({ capabilities = capabilities })
-
-			-- Lua Language Server
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-						workspace = {
-							library = vim.api.nvim_get_runtime_file("", true),
-							checkThirdParty = false,
-						},
-						telemetry = {
-							enable = false,
-						},
-					},
-				},
-			})
 			local swift_lsp = vim.api.nvim_create_augroup("swift_lsp", { clear = true })
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "swift" },
@@ -88,14 +93,13 @@ return {
 						name = "sourcekit-lsp",
 						cmd = { "sourcekit-lsp" },
 						root_dir = root_dir,
-						capabilities = capabilities, -- ensure it uses cmp capabilities
+						capabilities = capabilities,
 					})
 					vim.lsp.buf_attach_client(0, client)
 				end,
 				group = swift_lsp,
 			})
 
-			-- LSP Attach autocmd
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
@@ -105,12 +109,9 @@ return {
 						client.server_capabilities.positionEncoding = "utf-16"
 					end
 
-					-- Keybindings
 					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-					-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- Added references keybinding
-					-- vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
