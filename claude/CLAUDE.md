@@ -103,6 +103,7 @@ Specific rules live in `~/.claude/rules/`. Reference them here by topic.
 
 - [Commits et utilisation git](rules/git-commits.md)
 - [Implémentation](rules/implementation.md)
+- [Style de réponse](skills/style-reponse/SKILL.md)
 
 ## Self-updating rules — imperative
 
