@@ -203,3 +203,5 @@ google-chrome-for-testing/
 
 # Bytecode Python compilé, produit par le script de badge de session kitty.
 __pycache__/
+gcloud
+nvim/lazy-lock.json

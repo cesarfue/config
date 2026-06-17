@@ -70,3 +70,9 @@ do
   fi
 done
 unset _gcloud_dir
+bindkey -v
+export EDITOR=nvim
+
+export MCP_CLIENT_SECRET="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"
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
