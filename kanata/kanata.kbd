@@ -1,8 +1,8 @@
 ;; Kanata configuration
 ;; Toggle on/off: tap Right Alt
-;; Navigation: hold Space + j/k/l/; → Left/Down/Up/Right arrows
+;; Navigation: hold Space + j/k/l/; → Left/Down/Up/Right arrows, s/d → PgDn/PgUp
 ;; Mouse:      hold Win   + j/k/l/; → mouse Left/Down/Up/Right
-;; Home row mods: a/; = Win, s/l = Alt, d/k = Ctrl
+;; Home row mods: a/; = Win, s/l = Alt, d/k = Ctrl, f/j = Shift
 
 (defcfg
   process-unmapped-keys yes
@@ -10,19 +10,23 @@
 
 ;; Only intercept the keys we care about. Everything else passes through.
 (defsrc
-  a s d spc j k l ; lmet ralt
+  a s d f spc j k l ; lmet ralt
 )
 
 (defalias
   ;; Home row mods — left hand
-  a (tap-hold 200 200 a lmet)
-  s (tap-hold 200 200 s lalt)
-  d (tap-hold 200 200 d lctl)
+  a (tap-hold-release 200 200 a lmet)
+  s (tap-hold-release 200 200 s lalt)
+  d (tap-hold-release 200 200 d lctl)
+
+  ;; Home row mods — shift
+  f (tap-hold-release 200 200 f lsft)
+  j (tap-hold-release 200 200 j rsft)
 
   ;; Home row mods — right hand
-  ; (tap-hold 200 200 ; rmet)
-  l (tap-hold 200 200 l lalt)
-  k (tap-hold 200 200 k rctl)
+  ; (tap-hold-release 200 200 ; rmet)
+  l (tap-hold-release 200 200 l lalt)
+  k (tap-hold-release 200 200 k rctl)
 
   ;; Space: tap = space, hold = activate navigation layer
   spc (tap-hold 200 200 spc (layer-toggle nav))
@@ -35,24 +39,28 @@
 
   ;; Right Alt on disabled layer: tap = re-enable space layer, hold = right alt
   ena (tap-hold 200 200 (layer-switch base) ralt)
+
+  ;; Scroll viewport: 1 notch every 50ms while held
+  scrd (mwheel-down 50 120)
+  scru (mwheel-up 50 120)
 )
 
 ;; Active: home row mods + space layer
 (deflayer base
-  @a @s @d @spc j @k @l @; @win @dis
+  @a @s @d @f @spc @j @k @l @; @win @dis
 )
 
 ;; Navigation: active while space is held
 (deflayer nav
-  lmet lalt lctl spc left down up rght lmet ralt
+  lmet @scrd @scru lsft spc left down up rght lmet ralt
 )
 
 ;; Mouse: active while win is held
 (deflayer mouse
-  lmet lalt lctl spc (movemouse-accel-left 1 500 1 4) (movemouse-accel-down 1 500 1 4) (movemouse-accel-up 1 500 1 4) (movemouse-accel-right 1 500 1 4) lmet ralt
+  lmet lalt lctl lsft spc (movemouse-accel-left 1 500 1 4) (movemouse-accel-down 1 500 1 4) (movemouse-accel-up 1 500 1 4) (movemouse-accel-right 1 500 1 4) lmet ralt
 )
 
 ;; Disabled: everything is passthrough, tap Right Alt to re-enable
 (deflayer disabled
-  a s d spc j k l ; lmet @ena
+  a s d f spc j k l ; lmet @ena
 )

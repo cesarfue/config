@@ -48,6 +48,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Avoid Nvim 0.12-dev "yield across C-call boundary" when notify redraws trigger TS parse
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("notify_no_ts"),
+	pattern = "notify",
+	callback = function(args)
+		pcall(vim.treesitter.stop, args.buf)
+	end,
+})
+
 -- Markdown fold by headers
 function _G.markdown_foldexpr()
 	local line = vim.fn.getline(vim.v.lnum)

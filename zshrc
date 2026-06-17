@@ -29,7 +29,18 @@ export NVM_DIR="$HOME/.nvm"
 
 alias m="make"
 
+# Chess
+alias chess="python3 /home/cesar/src/clichess/main.py"
+
 # Kanata
 alias kr="systemctl --user restart kanata"
 alias ks="systemctl --user stop kanata"
 alias kst="systemctl --user status kanata"
+
+export EDITOR=nvim
+export VISUAL=nvim
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+alias jira-sync="python3 ~/vault/scripts/jira_sync.py"

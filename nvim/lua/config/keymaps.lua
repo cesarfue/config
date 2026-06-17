@@ -96,9 +96,14 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+map("n", "<leader>xc", "<cmd>cexpr []<cr>", { desc = "Clear Quickfix List" })
+map("n", "<leader>xd", function() vim.diagnostic.setqflist() end, { desc = "Diagnostics to Quickfix" })
 
-map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+-- item nav (lowercase) vs list-history nav (uppercase)
+map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix Item" })
+map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix Item" })
+map("n", "[Q", "<cmd>colder<cr>", { desc = "Older Quickfix List" })
+map("n", "]Q", "<cmd>cnewer<cr>", { desc = "Newer Quickfix List" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
