@@ -1,3 +1,12 @@
+vim.filetype.add({
+	extension = {
+		frag = "glsl",
+		vert = "glsl",
+		geom = "glsl",
+		comp = "glsl",
+	},
+})
+
 --
 local function augroup(name)
 	return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
