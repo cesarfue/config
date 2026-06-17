@@ -28,6 +28,48 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm use default --silent >/dev/null 2>&1
 
+alias m="make"
+
+# Chess
+alias chess="python3 /home/cesar/src/clichess/main.py"
+
+# Kanata
+alias kr="systemctl --user restart kanata"
+alias ks="systemctl --user stop kanata"
+alias kst="systemctl --user status kanata"
+
+export EDITOR=nvim
+export VISUAL=nvim
+bindkey -v
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
+
+# Puppeteer : le Chrome téléchargé dans ~/.cache/puppeteer n'a pas de profil AppArmor,
+# et kernel.apparmor_restrict_unprivileged_userns=1 lui interdit son bac à sable.
+# Le Chrome système, lui, est profilé dans /etc/apparmor.d/chrome.
+export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
+
+# Secrets — dans ~/.zsh_secrets, hors du dépôt de config. Jamais versionnés ici.
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
+
+# Google Cloud SDK — chargé seulement s'il est réellement installé
+for _gcloud_dir in \
+  "$HOME/google-cloud-sdk" \
+  /usr/share/google-cloud-sdk \
+  /usr/lib/google-cloud-sdk \
+  /opt/google-cloud-sdk \
+  "${HOMEBREW_PREFIX:-/home/linuxbrew/.linuxbrew}/share/google-cloud-sdk"
+do
+  if [ -f "$_gcloud_dir/path.zsh.inc" ]; then
+    source "$_gcloud_dir/path.zsh.inc"
+    [ -f "$_gcloud_dir/completion.zsh.inc" ] && source "$_gcloud_dir/completion.zsh.inc"
+    break
+  fi
+done
+unset _gcloud_dir
 bindkey -v
 export EDITOR=nvim
 

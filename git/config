@@ -1,0 +1,8 @@
+[diff]
+	tool = nvim
+
+[difftool]
+	prompt = false
+
+[difftool "nvim"]
+	cmd = "$HOME/.config/git/difftool-nvim" "$LOCAL" "$REMOTE"

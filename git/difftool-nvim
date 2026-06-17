@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -uo pipefail
+
+gauche="${1:-}"
+droite="${2:-}"
+
+if [ -z "$gauche" ] || [ -z "$droite" ]; then
+	echo "usage : difftool-nvim <gauche> <droite>" >&2
+	exit 2
+fi
+
+if [ ! -d "$gauche" ] && [ ! -d "$droite" ]; then
+	exec nvim -d "$gauche" "$droite"
+fi
+
+lister() { (cd "$1" 2>/dev/null && find . -type f -printf '%P\n'); }
+
+echapper() { printf '%s' "${1//\'/\'\'}"; }
+
+script="$(mktemp --suffix=.vim)"
+trap 'rm -f "$script"' EXIT
+
+ouverture="edit"
+
+while IFS= read -r rel; do
+	[ -n "$rel" ] || continue
+
+	avant="$gauche/$rel"
+	apres="$droite/$rel"
+	[ -f "$avant" ] || avant=/dev/null
+	[ -f "$apres" ] || apres=/dev/null
+
+	if [ "$avant" != /dev/null ] && [ "$apres" != /dev/null ] && cmp -s "$avant" "$apres"; then
+		continue
+	fi
+
+	{
+		printf "execute '%s ' . fnameescape('%s')\n" "$ouverture" "$(echapper "$apres")"
+		printf "diffthis\n"
+		printf "execute 'leftabove vsplit ' . fnameescape('%s')\n" "$(echapper "$avant")"
+		printf "setlocal readonly nomodifiable\n"
+		printf "diffthis\n"
+		printf "wincmd l\n"
+	} >>"$script"
+
+	ouverture="tabedit"
+done < <({ lister "$gauche"; lister "$droite"; } | LC_ALL=C sort -u)
+
+if [ "$ouverture" = "edit" ]; then
+	echo "difftool-nvim : aucune différence entre les deux arborescences" >&2
+	exit 0
+fi
+
+printf "tabfirst\n" >>"$script"
+
+nvim -S "$script"
