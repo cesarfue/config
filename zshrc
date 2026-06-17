@@ -26,6 +26,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm use default --silent >/dev/null 2>&1
 
 alias m="make"
 
@@ -39,8 +40,13 @@ alias kst="systemctl --user status kanata"
 
 export EDITOR=nvim
 export VISUAL=nvim
+bindkey -v
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
 alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
+
+export MCP_CLIENT_SECRET="***SECRET-REVOQUE***"
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
