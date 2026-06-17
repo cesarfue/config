@@ -28,8 +28,24 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm use default --silent >/dev/null 2>&1
 
-bindkey -v
+alias m="make"
+
+# Chess
+alias chess="python3 /home/cesar/src/clichess/main.py"
+
+# Kanata
+alias kr="systemctl --user restart kanata"
+alias ks="systemctl --user stop kanata"
+alias kst="systemctl --user status kanata"
+
 export EDITOR=nvim
+export VISUAL=nvim
+bindkey -v
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
 
 export MCP_CLIENT_SECRET="***SECRET-REVOQUE***"
 

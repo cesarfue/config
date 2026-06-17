@@ -83,5 +83,10 @@ JetBrains/PhpStorm2025.2/codestyles/Default.xml
 uv/uv-receipt.json
 qBittorrent
 gh
-gcloud
+openstack
 nvim/lazy-lock.json
+JetBrains/PhpStorm2025.2/keymaps/GNOME copy.xml
+sops/age/keys.txt
+chromium/Crash Reports
+netbird
+gcloud

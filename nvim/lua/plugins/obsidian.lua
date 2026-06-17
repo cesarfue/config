@@ -18,6 +18,26 @@ return {
 			date_format = "%Y/%Y-%m/%Y-%m-%d",
 			time_format = "%H:%M",
 			note_template = "Templates/Zettelkasten.md",
+			substitutions = {
+				yesterday = function()
+					local t = os.time()
+					local fname = vim.fn.expand("%:t:r")
+					local y, m, d = fname:match("^(%d%d%d%d)-(%d%d)-(%d%d)$")
+					if y then
+						t = os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d) })
+					end
+					return os.date("%Y/%Y-%m/%Y-%m-%d", t - 86400)
+				end,
+				tomorrow = function()
+					local t = os.time()
+					local fname = vim.fn.expand("%:t:r")
+					local y, m, d = fname:match("^(%d%d%d%d)-(%d%d)-(%d%d)$")
+					if y then
+						t = os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d) })
+					end
+					return os.date("%Y/%Y-%m/%Y-%m-%d", t + 86400)
+				end,
+			},
 		},
 		daily_notes = {
 			-- Optional, if you keep daily notes in a separate directory.
@@ -36,7 +56,7 @@ return {
 		},
 		mappings = {
 			-- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-			["of"] = {
+			["gf"] = {
 				action = function()
 					return require("obsidian").util.gf_passthrough()
 				end,
@@ -49,12 +69,30 @@ return {
 				end,
 				opts = { buffer = true },
 			},
-			-- Smart action depending on context, either follow link or toggle checkbox.
-			["<oa>"] = {
+			-- Smart action: follow link if cursor is on one, toggle/insert checkbox otherwise.
+			["<cr>"] = {
 				action = function()
-					return require("obsidian").util.smart_action()
+					local line = vim.api.nvim_get_current_line()
+					local col = vim.api.nvim_win_get_cursor(0)[2] + 1 -- 1-indexed
+					-- Check if cursor is on a [[wiki link]]
+					for s, e in line:gmatch("()%[%[.-%]%]()") do
+						if col >= s and col < e then
+							vim.cmd("ObsidianFollowLink")
+							return
+						end
+					end
+					if line:match("^%s*- %[.%]") then
+						require("obsidian").util.toggle_checkbox()
+						return
+					end
+					if line:match("^%s*- ") then
+						local new = line:gsub("^(%s*- )", "%1[ ] ", 1)
+						vim.api.nvim_set_current_line(new)
+						return
+					end
+					vim.cmd("ObsidianFollowLink")
 				end,
-				opts = { buffer = true, expr = true },
+				opts = { buffer = true },
 			},
 		},
 		-- Where to put new notes. Valid options are
@@ -87,19 +125,7 @@ return {
 			update_debounce = 200, -- update delay after a text change (in milliseconds)
 			max_file_length = 5000, -- disable UI features for files with more than this many lines
 			-- Define how various check-boxes are displayed
-			checkboxes = {
-				-- NOTE: the 'char' value has to be a single character, and the highlight groups are defined below.
-				[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-				["x"] = { char = "", hl_group = "ObsidianDone" },
-				[">"] = { char = "", hl_group = "ObsidianRightArrow" },
-				["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
-				["!"] = { char = "", hl_group = "ObsidianImportant" },
-				-- Replace the above with this if you don't have a patched font:
-				-- [" "] = { char = "☐", hl_group = "ObsidianTodo" },
-				-- ["x"] = { char = "✔", hl_group = "ObsidianDone" },
-
-				-- You can also add more custom ones...
-			},
+			checkboxes = {},
 			-- Use bullet marks for non-checkbox lists.
 			bullets = { char = "•", hl_group = "ObsidianBullet" },
 			external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
