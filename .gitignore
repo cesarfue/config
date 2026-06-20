@@ -90,3 +90,27 @@ sops/age/keys.txt
 chromium/Crash Reports
 netbird
 gcloud
+claude/backups
+claude/cache
+claude/daemon
+claude/debug
+claude/file-history
+claude/image-cache/a25d8a2e-e805-4c69-a15f-b69f58902324
+claude/jobs
+claude/paste-cache
+claude/projects
+claude/sessions
+claude/shell-snapshots
+claude/tasks/9daf7d80-ca84-4435-9c2f-6dd51c030cd0
+claude/telemetry
+claude/.last-cleanup
+claude/daemon-auth-cooldown
+claude/daemon-auth-status.json
+claude/daemon.log
+claude/history.jsonl
+claude/mcp-needs-auth-cache.json
+claude/migrate-claude-dir.sh
+claude/policy-limits.json
+claude/settings.json
+claude/settings.local.json
+claude/stats-cache.json

@@ -104,6 +104,10 @@ Specific rules live in `~/.claude/rules/`. Reference them here by topic.
 - [Commits et utilisation git](rules/git-commits.md)
 - [Implémentation](rules/implementation.md)
 - [Style de réponse](skills/style-reponse/SKILL.md)
+- [Tâches autonomes](rules/autonomous-task.md)
+- [Product Owner — définition de tâche](skills/product-owner/SKILL.md)
+- [AI Optimizer — amélioration du harness](skills/ai-optimizer/SKILL.md)
+- [Reviewer — cycle simplify + code-review](skills/reviewer/SKILL.md)
 
 ## Self-updating rules — imperative
 
