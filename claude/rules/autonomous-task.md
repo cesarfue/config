@@ -28,7 +28,7 @@ L'ouverture de la PR dépend du repo (voir étape 7).
 Avant de confier la tâche, créer une note :
 
 ```
-~/vault/projects/<projet>/Taches/<slug>.md
+~/vault/projects/<projet>/tasks/<slug>.md
 ```
 
 `<projet>` = nom du repo/projet courant. La note contient :
@@ -45,7 +45,7 @@ le compte rendu (fichiers modifiés, décisions prises, écarts par rapport aux 
 résultats des checks). Ajouter aussi un item dans `~/vault/projects/<projet>/tasks.md` :
 
 ```
-- [ ] <Description courte> #<projet> → [[Taches/<slug>]]
+- [ ] <Description courte> #<projet> → [[tasks/<slug>]]
 ```
 
 ---

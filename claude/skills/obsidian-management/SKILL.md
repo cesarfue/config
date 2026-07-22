@@ -23,7 +23,7 @@ ici, le workflow détaillé.
   projects/<projet>/
     <projet>.md            ← note hub (point d'entrée du projet)
     decisions.md           ← décisions — SEULEMENT si le projet n'a pas d'ADR en repo (voir plus bas)
-    Taches/<nom_tache>.md  ← une note par tâche/ticket
+    tasks/<nom_tache>.md   ← une note par tâche/ticket
     <sujet>.md             ← notes thématiques/référence, à la racine du dossier projet
   Notes/                   ← connaissance globale, transférable, à plat
   Journal/ Templates/ Excalidraw/   ← existant de l'utilisateur — NE PAS toucher
@@ -33,7 +33,7 @@ ici, le workflow détaillé.
 
 - **Transférable** (fait technique, pattern, recette, usage de lib, indépendant d'un projet) → `Notes/<sujet>.md`.
 - **Spécifique à un projet** → `projects/<projet>/`.
-  - **Tâche / ticket** (préfixe `ACR-`, `EP-`, `CP-`, `DEP-`, ou une action datée) → `projects/<projet>/Taches/`.
+  - **Tâche / ticket** (préfixe `ACR-`, `EP-`, `CP-`, `DEP-`, ou une action datée) → `projects/<projet>/tasks/`.
   - **Note thématique / référence / plan / archi** → à la racine `projects/<projet>/`.
   - **Note pivot** du projet → `projects/<projet>/<projet>.md` (overview + liens Dataview + requête des tâches).
 - **Ambigu / cross-projet** (touche deux projets, ou incertain) → laisser où c'est et **demander** à l'utilisateur avant de déplacer. Sous-classer plutôt que déplacer à tort.

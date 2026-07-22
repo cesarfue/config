@@ -42,7 +42,7 @@ Emplacement : `~/vault`. C'est la source unique de connaissance projet et de TOD
     <projet>.md               ← note hub (point d'entrée)
     decisions.md              ← décisions (projet perso) ; un repo avec ADR (docs/adr/) fait foi, pas de doublon ici
     tasks.md                  ← liste de TODOs (syntaxe du plugin obsidian-tasks)
-    Taches/<tâche>.md         ← une note par tâche/ticket
+    tasks/<tâche>.md          ← une note par tâche/ticket
     <sujet>.md                ← créé à la demande quand un sujet mérite sa page
   Notes/                      ← connaissance globale, partagée entre projets (à plat)
   Journal/                    ← notes datées existantes de l'utilisateur — ne pas toucher
