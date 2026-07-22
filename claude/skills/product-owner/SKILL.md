@@ -44,9 +44,9 @@ Ce que l'agent ne doit PAS toucher ou implémenter dans cette tâche.
 
 Checklist que l'agent coche avant de se déclarer terminé :
 - [ ] Les comportements décrits dans les Specs sont implémentés
-- [ ] Les tests unitaires couvrent les cas clés (si applicable)
-- [ ] `scripts/ci-local.sh` passe
-- [ ] Le code est commité sur la branche dédiée
+- [ ] Les tests couvrent les cas clés (si applicable)
+- [ ] Les checks du profil passent (cf. `rules/autonomous-task.md`)
+- [ ] Le code est commité et la branche poussée
 - [ ] Ce compte rendu est rempli
 
 ## Compte rendu
@@ -71,7 +71,9 @@ Ajouter dans `tasks.md` :
 Dans le prompt de l'agent :
 - Donner le chemin exact de la note de tâche
 - Lui rappeler qu'il doit remplir la section `## Compte rendu` avant de finir
-- Lui rappeler le protocole `autonomous-task.md` (worktree, commit, ci-local, merge, push)
+- Lui rappeler le protocole `rules/autonomous-task.md` (worktree + branche depuis
+  `origin/main`, checks du profil du repo — code ou infra, commit, push branche). Le bloc
+  de protocole à copier dans le prompt est fourni en fin de `autonomous-task.md`.
 
 ## Principes PO à garder en tête
 
@@ -83,6 +85,9 @@ Dans le prompt de l'agent :
 ---
 
 ## Points de vigilance par domaine
+
+Selon ce que touche la tâche, certains domaines méritent une checklist dédiée dans les
+specs. L'authentification en est un exemple type ; en ajouter d'autres au besoin.
 
 ### Authentification — checklist obligatoire
 

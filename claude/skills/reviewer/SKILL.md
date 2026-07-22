@@ -63,8 +63,10 @@ Relire les mêmes fichiers après simplification. Chercher et corriger :
 - Validation d'input absente aux frontières (body, query params)
 
 **Idioms du stack**
-- NestJS : patterns incorrects, requêtes Prisma sous-optimales
-- SvelteKit 5 : réactivité incorrecte (`$derived` oublié, `$effect` mal utilisé), `fetch` sans gestion d'erreur aux frontières, props non typées
+- Les idioms du stack **du repo courant** : patterns incorrects, anti-patterns propres au
+  framework, appels sous-optimaux. S'appuyer sur le `CLAUDE.md` / les conventions du repo
+  pour savoir ce qui est idiomatique ici (backend, frontend, ORM, réactivité, gestion
+  d'erreur aux frontières, typage).
 
 Pour chaque correction non-triviale, écrire une ligne dans `/tmp/review-notes.md` :
 `[fichier:ligne] — problème + correction`
@@ -104,6 +106,7 @@ Quand l'agent termine, lire `/tmp/review-notes.md` puis :
 
 ## Contraintes globales
 
-- Ne jamais toucher aux fichiers de migration SQL, schema Prisma, `package.json`, `package-lock.json`, `*.spec.ts`, configs ESLint
-- Ne pas modifier l'interface publique des modules (routes, DTO publics, exports)
+- Ne jamais toucher aux fichiers sensibles ou générés déclarés par le repo : migrations,
+  schéma de base, lockfiles, specs/tests, manifestes de dépendances, configs de lint
+- Ne pas modifier l'interface publique des modules (routes, DTO/types publics, exports)
 - Le commit se fait sur la branche courante, jamais sur main directement

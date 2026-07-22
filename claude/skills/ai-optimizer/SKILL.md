@@ -12,13 +12,14 @@ Invoqué quand un agent a terminé une tâche en laissant des problèmes. Object
 
 ## Déclencheurs typiques
 
-- Agent n'a pas commité ses changements
+- Agent n'a pas commité ses changements, ou n'a pas poussé sa branche
 - Agent a travaillé dans le checkout principal au lieu du worktree
-- Tests non lancés ou CI non exécutée
+- Checks du profil non lancés (tests/CI côté code ; validate/plan/scan côté infra)
 - Agent n'a pas rempli le compte rendu dans la note de tâche
-- Merge fait avant le commit
-- `npx prisma generate` oublié après un changement de schéma
-- `node_modules` absents dans le worktree
+- Commit fait après un merge (trop tard)
+- Étape de génération/build propre à la stack oubliée (ex. codegen, install de deps)
+- **Profil infra** : `plan` non joint au compte rendu, `apply` lancé en autonomie,
+  secret committé en clair, scan de sécurité (tfsec/checkov/trivy) non exécuté
 
 ## Protocole
 
