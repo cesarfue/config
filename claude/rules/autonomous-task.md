@@ -109,7 +109,9 @@ karpathy-guidelines (dev) → /simplify → /code-review → CI locale du repo
 - `/simplify` : nettoyer le diff (complexité accidentelle, over-engineering) sans changer
   le comportement ni élargir le périmètre — **avant** la revue, pour qu'elle porte sur la
   correctness et non sur du bruit.
-- `/code-review` : revue du diff courant, chaque finding traité.
+- `/code-review` : revue du diff courant, chaque finding traité. Si le repo définit sa
+  propre commande de revue (ex. `/review-pr` sur accoreboot), utiliser celle-ci à la
+  place — le repo fait autorité sur l'outil concret, cf. son `CLAUDE.md`.
 - **CI locale du repo** : lancer les vérifications que reproduit la CI distante (lint,
   format, typecheck, tests, build…). Les **commandes exactes sont dans le `CLAUDE.md` du
   repo**, pas ici. Tout doit passer avant le commit.
@@ -129,7 +131,9 @@ karpathy-guidelines + addendum infra (dev) → validate/fmt/lint → plan confor
   chiffrés committés, jamais de valeur sensible dans le code ou l'état.
 - Modules/rôles réutilisables plutôt que du copier-coller.
 - **`plan` avant tout ; jamais d'`apply` automatique.** L'application en réel est une
-  décision humaine.
+  décision humaine. En pratique, l'agent s'en tient à `plan` et aux checks ; il ne lance
+  **jamais** de cible qui applique ou détruit — y compris les raccourcis locaux en
+  `-auto-approve` (`make apply`, `make up`, `make down`, `make destroy`, `terraform/tofu apply`).
 
 **Les 4 checks** (commandes exactes dans le `CLAUDE.md` du repo d'infra) :
 
@@ -245,7 +249,8 @@ concerné : ni worktree, ni branche, ni checks.
 - Sauter les checks du profil parce que « ça passait avant » → toujours les relancer.
 - Prétendre un check « vert » sans l'avoir exécuté → montrer la sortie, ou dire ce qui
   n'a pas pu tourner.
-- **Infra** : lancer `apply` (ou `terraform apply`/`tofu apply`) en autonomie → interdit,
-  c'est une décision humaine.
+- **Infra** : lancer `apply`/`destroy` en autonomie, directement ou via un raccourci
+  `-auto-approve` (`make apply`/`up`/`down`/`destroy`, `terraform apply`, `tofu apply`)
+  → interdit, c'est une décision humaine.
 - **Infra** : committer un secret en clair, ou un plan/état contenant des valeurs sensibles.
 - Ouvrir une PR sur un repo hors allowlist → s'arrêter au push et proposer la commande.
