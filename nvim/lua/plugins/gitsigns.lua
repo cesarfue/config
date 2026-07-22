@@ -12,6 +12,24 @@ return {
 		{ "<leader>ghd", "<cmd>Gitsigns diffthis<CR>", desc = "Git: Diff This" },
 		{ "<leader>ghD", function() require("gitsigns").diffthis("~") end, desc = "Git: Diff This ~" },
 		{ "<leader>gb", function() require("gitsigns").blame_line({ full = true }) end, desc = "Git: Blame Line" },
+		-- Revue de PR : comparer la marge à la base (ex. origin/main) au lieu de HEAD,
+		-- pour voir dans le gutter tout ce que la PR a changé. Appliqué à tous les buffers.
+		{
+			"<leader>ghb",
+			function()
+				vim.ui.input({ prompt = "Gitsigns base (def. origin/main): " }, function(ref)
+					if ref == nil then
+						return
+					end
+					if ref == "" then
+						ref = "origin/main"
+					end
+					require("gitsigns").change_base(ref, true)
+				end)
+			end,
+			desc = "Git: Set diff base (PR review)",
+		},
+		{ "<leader>ghB", function() require("gitsigns").change_base(nil, true) end, desc = "Git: Reset diff base (HEAD)" },
 	},
 	opts = {
 		signs = {

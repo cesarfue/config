@@ -1,3 +1,26 @@
+-- Config partagée du picker quickfix : liste à gauche / aperçu à droite, fenêtre large,
+-- et chemin complet affiché en une seule colonne (pas la colonne nom de fichier tronquée).
+-- Utilisée à la fois par `:Telescope quickfix` (<leader>sq) et par <leader>gq ci-dessous.
+local quickfix_picker_opts = {
+  layout_strategy = "horizontal",
+  layout_config = { width = 0.95, height = 0.9, preview_width = 0.4 },
+  entry_maker = function(item)
+    local filename = item.filename
+    if not filename and item.bufnr and item.bufnr > 0 then
+      filename = vim.api.nvim_buf_get_name(item.bufnr)
+    end
+    local display = (item.text ~= nil and item.text ~= "") and item.text or filename
+    return {
+      value = item,
+      ordinal = display,
+      display = display,
+      filename = filename,
+      lnum = item.lnum,
+      col = item.col,
+    }
+  end,
+}
+
 -- Remplit la quickfix list avec les fichiers modifiés par un commit (ou une range),
 -- puis l'ouvre via Telescope. Range = contient ".." (ex: main..HEAD, main...HEAD).
 local function git_changed_files_to_qf()
@@ -41,7 +64,7 @@ local function git_changed_files_to_qf()
     end
 
     vim.fn.setqflist({}, " ", { title = "Fichiers modifiés: " .. ref, items = items })
-    require("telescope.builtin").quickfix()
+    require("telescope.builtin").quickfix(quickfix_picker_opts)
   end)
 end
 
@@ -49,7 +72,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
-    tag = "0.1.8",
+    branch = "master",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
@@ -76,14 +99,32 @@ return {
 
     },
     config = function()
+      local actions = require("telescope.actions")
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { "/Library", "node_modules", "vendor", ".git" },
+          -- Libellés explicites (visibles via `?` en mode normal / `<C-/>` en insertion
+          -- dans un picker). Reprennent le comportement par défaut de Telescope.
+          mappings = {
+            i = {
+              ["<Tab>"] = { actions.toggle_selection + actions.move_selection_worse, type = "action", opts = { desc = "Cocher/décocher (sélection multiple)" } },
+              ["<S-Tab>"] = { actions.toggle_selection + actions.move_selection_better, type = "action", opts = { desc = "Cocher/décocher (vers le haut)" } },
+              ["<M-q>"] = { actions.send_selected_to_qflist + actions.open_qflist, type = "action", opts = { desc = "Sélection cochée -> quickfix" } },
+              ["<C-q>"] = { actions.send_to_qflist + actions.open_qflist, type = "action", opts = { desc = "Tous les résultats -> quickfix" } },
+            },
+            n = {
+              ["<Tab>"] = { actions.toggle_selection + actions.move_selection_worse, type = "action", opts = { desc = "Cocher/décocher (sélection multiple)" } },
+              ["<S-Tab>"] = { actions.toggle_selection + actions.move_selection_better, type = "action", opts = { desc = "Cocher/décocher (vers le haut)" } },
+              ["<M-q>"] = { actions.send_selected_to_qflist + actions.open_qflist, type = "action", opts = { desc = "Sélection cochée -> quickfix" } },
+              ["<C-q>"] = { actions.send_to_qflist + actions.open_qflist, type = "action", opts = { desc = "Tous les résultats -> quickfix" } },
+            },
+          },
         },
         pickers = {
           find_files = {
             hidden = true,
           },
+          quickfix = quickfix_picker_opts,
         },
       })
     end,
