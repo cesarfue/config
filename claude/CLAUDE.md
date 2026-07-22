@@ -40,9 +40,9 @@ Emplacement : `~/vault`. C'est la source unique de connaissance projet et de TOD
 ~/vault/
   projects/<projet>/          ← un dossier par projet
     <projet>.md               ← note hub (point d'entrée)
-    decisions.md              ← append-only, entrées datées
+    decisions.md              ← décisions (projet perso) ; un repo avec ADR (docs/adr/) fait foi, pas de doublon ici
     tasks.md                  ← liste de TODOs (syntaxe du plugin obsidian-tasks)
-    tasks/<slug>.md           ← notes de tâche déléguées à un agent
+    Taches/<tâche>.md         ← une note par tâche/ticket
     <sujet>.md                ← créé à la demande quand un sujet mérite sa page
   Notes/                      ← connaissance globale, partagée entre projets (à plat)
   Journal/                    ← notes datées existantes de l'utilisateur — ne pas toucher
@@ -139,6 +139,7 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 - [Product Owner — définition de tâche](skills/product-owner/SKILL.md)
 - [AI Optimizer — amélioration du harness](skills/ai-optimizer/SKILL.md)
 - [Reviewer — cycle simplify + code-review](skills/reviewer/SKILL.md)
+- [Gestion du vault Obsidian](skills/obsidian-management/SKILL.md)
 
 ## Règles auto-évolutives — impératif
 

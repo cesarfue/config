@@ -16,7 +16,7 @@ Reformule en une phrase ce que l'utilisateur veut vraiment obtenir (résultat fi
 
 ## 2. Rédiger la note de tâche
 
-Crée `~/vault/projects/<project>/tasks/<slug>.md` avec les sections suivantes :
+Crée `~/vault/projects/<project>/Taches/<slug>.md` avec les sections suivantes :
 
 ```markdown
 # <Titre de la tâche>
@@ -63,7 +63,7 @@ Checklist que l'agent coche avant de se déclarer terminé :
 
 Ajouter dans `tasks.md` :
 ```
-- [ ] <Description courte> #<project> → [[tasks/<slug>]]
+- [ ] <Description courte> #<project> → [[Taches/<slug>]]
 ```
 
 ## 4. Briefer l'agent
