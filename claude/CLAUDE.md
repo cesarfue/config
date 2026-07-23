@@ -142,3 +142,5 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 ## Règles auto-évolutives — impératif
 
 Quand l'utilisateur corrige mon comportement, pointe quelque chose que je fais mal, ou donne une consigne explicite sur notre façon de travailler : **immédiatement** écrire ou mettre à jour la règle concernée dans `~/.claude/rules/` et la référencer ici. Ne pas attendre qu'on me le demande. Vaut même en pleine tâche — sauvegarder la règle, puis continuer.
+
+De même, **dès qu'un agent n'a pas fait ce qu'il devait, ou qu'une étape du workflow (code, infra ou management du vault Obsidian) a été oubliée ou mal faite** : invoquer le skill `ai-optimizer` pour diagnostiquer la cause racine et patcher la surface de workflow concernée (protocole, skill, rule ou ce fichier). Ne pas se contenter de corriger le symptôme ponctuel.
