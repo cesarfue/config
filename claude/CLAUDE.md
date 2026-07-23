@@ -39,17 +39,18 @@ Emplacement : `~/vault`. C'est la source unique de connaissance projet et de TOD
 ```
 ~/vault/
   projects/<projet>/          ← un dossier par projet
-    <projet>.md               ← note hub (point d'entrée)
-    decisions.md              ← décisions (projet perso) ; un repo avec ADR (docs/adr/) fait foi, pas de doublon ici
-    tasks.md                  ← liste de TODOs (syntaxe du plugin obsidian-tasks)
-    tasks/<tâche>.md          ← une note par tâche/ticket
-    <sujet>.md                ← créé à la demande quand un sujet mérite sa page
+    <projet>.md               ← note hub — SEUL fichier à la racine
+    tasks/                    ← une note par tâche/ticket
+    decisions/                ← décisions (projet perso) ; un repo avec ADR (docs/adr/) fait foi
+    etudes/                   ← analyses, comparatifs, POC, investigations, doc externe
+    plans/                    ← feuilles de route et specs séquencées
+    presentations/            ← supports de présentation
   Notes/                      ← connaissance globale, partagée entre projets (à plat)
   Journal/                    ← notes datées existantes de l'utilisateur — ne pas toucher
   Templates/                  ← existant — ne pas toucher
 ```
 
-Pas de dossier `raw/`, pas de sous-dossiers dans `Notes/`, tout à plat dans chaque dossier projet.
+Pas de sous-dossiers dans `Notes/` (à plat). Dans un dossier projet, la racine ne porte que le hub ; tout le reste est rangé par type. Détail du rangement, du modèle de hub et des deux régimes de suivi (Obsidian vs Jira) → skill `obsidian-management`.
 
 ### Où va une information
 
@@ -73,23 +74,20 @@ tags: [<projet>]       # pour une note projet
 
 ### Note hub
 
-Chaque `projects/<projet>/<projet>.md` est le point d'entrée du projet : un paragraphe de présentation, une liste Dataview des notes liées (`FROM #<projet>`), une requête des tâches ouvertes, et un lien vers `decisions.md` et `tasks.md`.
+Chaque `projects/<projet>/<projet>.md` est le point d'entrée : un paragraphe de présentation, une section Décisions (renvoi ADR du repo, ou `decisions/` en perso), une section Tâches (selon le régime — cf. Discipline TODO), et une liste Dataview des notes du projet (`FROM "projects/<projet>"`, par dossier). Il reste **stable** : ni journal, ni backlog recopié. Modèle complet dans le skill `obsidian-management`.
 
 ### Quand promouvoir un sujet en note dédiée
 
-Une section de `decisions.md` / `tasks.md` / d'une note existante devient un fichier à part quand elle dépasse ~3-4 paragraphes, ou qu'elle est référencée depuis 2+ endroits. Jusque-là, elle reste dans le fichier parent. Ne pas pré-créer de notes vides.
+Une section d'une note existante devient un fichier à part (dans le bon sous-dossier de type) quand elle dépasse ~3-4 paragraphes, ou qu'elle est référencée depuis 2+ endroits. Jusque-là, elle reste dans le fichier parent. Ne pas pré-créer de notes vides.
 
 ## Discipline TODO — impératif
 
-**Maintenir `projects/<projet>/tasks.md` pour chaque projet touché.**
+Le suivi des tâches a **deux régimes**, selon le projet (détail dans le skill `obsidian-management`) :
 
-- Ouvrir le fichier en début de session et lire les tâches existantes.
-- Ajouter une tâche dès que l'utilisateur mentionne quelque chose à faire plus tard, un follow-up connu, un correctif reporté.
-- Cocher (`- [x]`) une tâche au moment où elle est terminée — pas « en fin de session », pas « plus tard ».
-- Syntaxe obsidian-tasks : `- [ ] Description #<projet> 📅 YYYY-MM-DD` (date d'échéance optionnelle).
-- Si une tâche n'a plus de sens, la supprimer ou noter pourquoi — ne jamais laisser d'items périmés.
+- **Projet perso (pas de Jira) → Obsidian fait foi.** Maintenir les tâches dans le vault (`tasks/` et/ou cases obsidian-tasks agrégées par le hub). Ouvrir en début de session, ajouter une tâche dès que l'utilisateur mentionne un à-faire/follow-up, cocher (`- [x]`) **au moment** où c'est terminé, supprimer les items périmés. Syntaxe : `- [ ] Description #<projet> 📅 YYYY-MM-DD`.
+- **Gros projet adossé à Jira (accoreboot, accoreboot-infra) → Jira fait foi, Obsidian suit.** Ne pas tenir de backlog dans le vault ; tenir Jira à jour. Les notes de `tasks/` sont des notes de travail par ticket, un item non ticketisé va dans une note « à ticketiser », jamais dans le hub.
 
-Non négociable. Si j'oublie, l'utilisateur doit tout retenir lui-même, ce qui vide le dispositif de son intérêt. Si l'utilisateur me dit « tu n'as pas mis à jour la TODO », c'est un échec de cette règle, pas une demande nouvelle.
+Non négociable dans les deux cas. Si l'utilisateur me dit « tu n'as pas mis à jour la TODO » (ou Jira), c'est un échec de cette règle, pas une demande nouvelle.
 
 ## Écrire les notes — j'écris, l'utilisateur lit
 

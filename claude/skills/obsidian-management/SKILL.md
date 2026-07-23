@@ -1,74 +1,138 @@
 ---
 name: obsidian-management
 description: >-
-  Organisation et rangement du vault Obsidian (~/vault) : où placer une note, regrouper
-  les notes d'un projet dans son dossier, déplacer les tâches, décider où vivent les
-  décisions (ADR en repo vs decisions.md local), créer/renommer/archiver des notes. À
-  utiliser dès qu'on range le vault, qu'on crée un dossier de projet, qu'on déplace des
-  notes en masse, ou qu'on se demande « où va cette note / cette décision ? ». Ne PAS
-  utiliser pour le contenu métier d'une note (ça, c'est le travail projet) — seulement
-  pour sa place et l'hygiène du vault.
+  Organisation et rangement du vault Obsidian (~/vault) : où placer une note, structurer un
+  dossier projet (hub + sous-dossiers par type), déplacer/ranger les notes, décider où vivent
+  les décisions (ADR en repo vs decisions/ local) et le suivi des tâches (Obsidian vs Jira),
+  créer/renommer/archiver des notes. À utiliser dès qu'on range le vault, qu'on crée un dossier
+  de projet, qu'on déplace des notes en masse, ou qu'on se demande « où va cette note / cette
+  décision / cette tâche ? ». Ne PAS utiliser pour le contenu métier d'une note (ça, c'est le
+  travail projet) — seulement pour sa place et l'hygiène du vault.
 ---
 
 # Gestion du vault Obsidian
 
-Le vault vit dans `~/vault`. Ce skill décrit **où** ranger les choses et **comment**
-réorganiser sans casser. Le layout always-on est rappelé dans le `CLAUDE.md` global ;
-ici, le workflow détaillé.
+Le vault vit dans `~/vault`. Ce skill décrit **où** ranger les choses et **comment** réorganiser
+sans casser. Le layout always-on est rappelé dans le `CLAUDE.md` global ; ici, le détail.
 
 ## Layout par projet
+
+À la racine d'un dossier projet, **seule la note-hub** ; tout le reste est rangé dans un
+sous-dossier **par type**.
 
 ```
 ~/vault/
   projects/<projet>/
-    <projet>.md            ← note hub (point d'entrée du projet)
-    decisions.md           ← décisions — SEULEMENT si le projet n'a pas d'ADR en repo (voir plus bas)
-    tasks/<nom_tache>.md   ← une note par tâche/ticket
-    <sujet>.md             ← notes thématiques/référence, à la racine du dossier projet
-  Notes/                   ← connaissance globale, transférable, à plat
+    <projet>.md          ← note-hub, SEUL fichier à la racine (nom = dossier)
+    tasks/               ← une note par tâche/ticket
+    decisions/           ← ADR/arbitrages : un choix tranché (ou explicitement à trancher), contexte + options + décision
+    etudes/              ← exploratoire : analyses, comparatifs, POC, mesures, investigations, preuves, notes d'apprentissage, fiches doc externe (fournisseur…)
+    plans/               ← feuilles de route et specs séquencées (quoi, dans quel ordre)
+    presentations/       ← supports destinés à être présentés (decks, plans de slides)
+  Notes/                 ← connaissance globale, transférable, à plat
   Journal/ Templates/ Excalidraw/   ← existant de l'utilisateur — NE PAS toucher
 ```
+
+Les sous-dossiers de type ne sont créés **que s'ils ont du contenu** (pas de dossier vide).
+`archive` est un **tag**, pas un dossier.
 
 ## Où va une note ?
 
 - **Transférable** (fait technique, pattern, recette, usage de lib, indépendant d'un projet) → `Notes/<sujet>.md`.
-- **Spécifique à un projet** → `projects/<projet>/`.
-  - **Tâche / ticket** (préfixe `ACR-`, `EP-`, `CP-`, `DEP-`, ou une action datée) → `projects/<projet>/tasks/`.
-  - **Note thématique / référence / plan / archi** → à la racine `projects/<projet>/`.
-  - **Note pivot** du projet → `projects/<projet>/<projet>.md` (overview + liens Dataview + requête des tâches).
-- **Ambigu / cross-projet** (touche deux projets, ou incertain) → laisser où c'est et **demander** à l'utilisateur avant de déplacer. Sous-classer plutôt que déplacer à tort.
+- **Spécifique à un projet** → `projects/<projet>/<type>/` selon le type ci-dessus. En cas de doute entre `etudes/` (comprendre) et `decisions/` (trancher) : si l'objet est un choix, c'est `decisions/`.
+- **Ambigu / cross-projet** → laisser où c'est et **demander** avant de déplacer. Sous-classer plutôt que déplacer à tort.
 
-## Décisions : ADR en repo vs decisions.md local (règle importante)
+## Note-hub — modèle à respecter
 
-Les décisions vivent **là où est la source de vérité du projet** :
+Une note-hub uniforme, stable (pas un journal). Modèle :
 
-- **Projet adossé à un repo avec des ADR** (cas d'accoreboot : `docs/adr/`, ~79 ADR ; et accoreboot-infra : `docs/adr/`, ~31 ADR) → les décisions sont les **ADR versionnés dans le repo**, partagés avec l'équipe. Obsidian **ne duplique pas** : pas de `decisions.md` canonique dans le dossier projet ; la note hub **pointe** vers `docs/adr/` du repo. Dupliquer crée de la dérive et viole la doctrine « le repo possède ses spécificités ».
-- **Projet perso sans repo/ADR** → `projects/<projet>/decisions.md` local dans le vault est le bon foyer (entrées datées, append-only, le *pourquoi* pas seulement le *quoi*).
+```markdown
+---
+created: <date d'origine>
+tags: [<projet>]
+aliases: [<Nom affiché>]   # si le nom de fichier diffère du nom d'affichage
+---
 
-En clair : ne jamais recopier les ADR d'un repo dans le vault. Pour un projet perso, le vault EST la mémoire des décisions.
+# <Nom affiché>
+
+<Un paragraphe d'overview : ce qu'est le projet, la stack, les repos liés.>
+
+## Décisions
+<voir la règle « Décisions » ci-dessous>
+
+## Tâches
+<voir la règle « Suivi des tâches » ci-dessous>
+
+## Notes du projet
+​```dataview
+LIST
+FROM "projects/<projet>"
+WHERE file.name != this.file.name AND !contains(file.folder, "/tasks")
+​```
+```
+
+**Dataview par dossier, pas par tag** : on interroge `FROM "projects/<projet>"` (le rangement
+strict par dossier suffit), on ne dépend pas d'un tag posé sur chaque note.
+
+## Décisions — où elles vivent
+
+La décision vit **là où est la source de vérité du projet** :
+
+- **Projet adossé à un repo avec ADR** (accoreboot, accoreboot-infra : `docs/adr/`) → les ADR
+  versionnés dans le repo font foi. Le vault **ne duplique pas** : la section Décisions du hub
+  **pointe** vers `docs/adr/`. Les analyses locales pré-ADR peuvent vivre dans `decisions/`, mais
+  jamais une copie canonique des ADR.
+- **Projet perso sans repo** → `decisions/` dans le vault (une note par décision, datée, le
+  *pourquoi* pas seulement le *quoi*).
+
+## Suivi des tâches — deux régimes (source de vérité)
+
+- **Projet perso (pas de Jira)** → **Obsidian est la source de vérité**. Les tâches vivent dans le
+  vault (`tasks/` et/ou cases obsidian-tasks) ; le hub agrège les tâches ouvertes via un bloc
+  `tasks`. Claude les maintient (discipline TODO).
+- **Gros projet adossé à Jira (préfixe ACR-…, board Jira)** → **Jira est la source de vérité,
+  Obsidian suit**. Le hub ne tient **aucun backlog ni checklist recopiant Jira** (anti-pattern).
+  Les notes de `tasks/` sont des **notes de travail par ticket** (contexte, analyse) qui
+  **référencent** le ticket (ID + lien Jira), sans porter le statut. Le hub pointe vers Jira et
+  liste les notes locales via Dataview. Un item non ticketisé se met dans une note « à ticketiser »
+  de `tasks/`, pas dans le hub.
+
+Repère : un projet est « Jira-backé » s'il a un préfixe de ticket et un board ; sinon natif-Obsidian.
 
 ## Réorganiser sans rien casser (méthode)
 
-- **Les liens sont sûrs au déplacement** : Obsidian résout les `[[wikilinks]]` par **nom de fichier** (`alwaysUpdateLinks` activé, format wikilink). Déplacer une note ne casse pas ses liens **tant que le nom reste unique** — ne pas renommer en même temps qu'on déplace.
-- **Classer avant de bouger** : lire le **contenu** de la note (pas seulement le titre) pour trancher projet/thème/tâche. Sur un gros lot, déléguer le tri de lecture à un agent (`Explore`) puis exécuter les déplacements.
-- **Garde-fou sur les lots** : construire la liste des fichiers à déplacer, en compter le total, et n'exécuter le `mv` que si le compte est dans une plage attendue (évite un déplacement massif sur un glob qui a mal matché).
-- **git du vault** : la plupart des notes de `Notes/` ne sont **pas** suivies par git → utiliser un `mv` de fichiers classique (le `git mv` échoue sur les fichiers non suivis). **Ne pas commiter le vault** : l'utilisateur le synchronise via Obsidian.
-- **zsh** : les variables non quotées ne sont pas découpées et un glob sans correspondance lève une erreur — préférer des tableaux et `find … -name` aux boucles `for f in *.glob`.
+- **Liens sûrs au déplacement** : Obsidian résout les `[[wikilinks]]` par **nom de fichier**
+  (`alwaysUpdateLinks` activé, format wikilink) → déplacer une note ne casse pas ses liens tant
+  que le nom reste **unique**. Ne pas renommer en même temps qu'on déplace. Si un renommage est
+  nécessaire (ex. hub aligné sur `<projet>.md`), ajouter un `aliases:` avec l'ancien nom pour que
+  les `[[ancien nom]]` continuent de résoudre.
+- **Classer sur le contenu, pas le titre** : lire la note avant de trancher son type. Sur un gros
+  lot, déléguer le tri de lecture à un agent (`Explore`) puis exécuter les déplacements.
+- **Garde-fou sur les lots** : construire la liste, compter, n'exécuter le `mv` que si le total est
+  dans une plage attendue (évite un glob qui a mal matché). Après coup, vérifier que la racine ne
+  contient que le hub.
+- **git du vault** : la plupart des notes ne sont **pas** suivies par git → `mv` de fichiers
+  classique (`git mv` échoue sur les non-suivis). **Ne pas commiter le vault** : l'utilisateur le
+  synchronise via Obsidian.
+- **zsh** : variables non quotées non découpées, et un glob sans correspondance lève une erreur →
+  préférer des tableaux et `find … -name` aux boucles `for f in *.glob`.
 
-## Frontmatter (comme les notes existantes, style Zettelkasten)
+## Frontmatter (style Zettelkasten, comme les notes existantes)
 
 ```yaml
 ---
 created: YYYY-MM-DD
-in: "[[<projet>]]"     # pour une note projet, pointer vers le hub
+in: "[[<projet>]]"     # note non-hub : pointer vers le hub
 tags: [<projet>]
 ---
 ```
 
 ## Anti-patterns
 
-- Déplacer un lot sur le seul titre, sans lire le contenu → mauvais classement, notes perdues.
-- Recopier/maintenir dans Obsidian des décisions qui ont déjà leurs ADR en repo → dérive garantie.
-- Renommer une note en la déplaçant → risque de casser un lien par nom.
-- Toucher `Journal/`, `Templates/`, `Excalidraw/`.
-- Commiter le vault à la place de l'utilisateur.
+- Laisser des notes à la racine du dossier projet (hors hub) → tout ranger par type.
+- Un hub qui devient un journal / un backlog manuel recopiant Jira → le hub reste stable et
+  renvoie à la source de vérité (Jira, ADR).
+- Déplacer un lot sur le seul titre, sans lire le contenu → mauvais classement.
+- Recopier/maintenir dans Obsidian des décisions qui ont déjà leurs ADR en repo → dérive.
+- Renommer une note en la déplaçant sans poser d'alias → lien cassé.
+- Toucher `Journal/`, `Templates/`, `Excalidraw/` ; commiter le vault à la place de l'utilisateur.
