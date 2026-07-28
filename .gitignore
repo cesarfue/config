@@ -126,3 +126,4 @@ claude/plugins/marketplaces/claude-plugins-official/README.md
 claude/plugins/known_marketplaces.json
 claude/plugins/marketplaces/claude-plugins-official/.claude-plugin
 claude/chrome
+kitty/kitty.conf
