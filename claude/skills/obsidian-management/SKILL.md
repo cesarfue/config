@@ -71,8 +71,10 @@ WHERE file.name != this.file.name AND !contains(file.folder, "/tasks")
 ​```
 ```
 
-**Dataview par dossier, pas par tag** : on interroge `FROM "projects/<projet>"` (le rangement
-strict par dossier suffit), on ne dépend pas d'un tag posé sur chaque note.
+**Dataview par dossier, pas par tag** (pour un hub projet) : on interroge `FROM "projects/<projet>"`
+(le rangement strict par dossier suffit), on ne dépend pas d'un tag posé sur chaque note.
+**Exception assumée** : un *set de doc thématique* dans le `Notes/` à plat n'a pas de dossier à
+cibler — il s'indexe par **tag dédié + note MOC** (voir « Set de doc thématique » plus bas).
 
 ## Décisions — où elles vivent
 
@@ -126,6 +128,36 @@ in: "[[<projet>]]"     # note non-hub : pointer vers le hub
 tags: [<projet>]
 ---
 ```
+
+## Set de doc thématique dans Notes/ (MOC + tag)
+
+`Notes/` est **à plat** : impossible d'y regrouper un ensemble de notes par sous-dossier. Pour une
+**doc thématique** transverse (plusieurs notes atomiques sur un même domaine — ex. la musique), le
+regroupement se fait donc par :
+
+- un **tag de thème** dédié (`#music`, `#<theme>`) sur **chaque** note du set ;
+- une **note d'index (MOC, *Map of Content*)** nommée `<Thème> (MOC).md` : table des matières
+  groupée par sous-thème avec des `[[liens]]`, plus un bloc Dataview de secours `LIST FROM #<theme>`.
+
+C'est la **seule** entorse à « Dataview par dossier » (ci-dessus), et elle ne vaut que dans le
+`Notes/` à plat — jamais pour un hub projet, qui a un dossier à cibler.
+
+Frontmatter d'une note de set thématique (note **globale**, non projet — pas de `in:`) :
+
+```yaml
+---
+created: YYYY-MM-DD
+out: "[[<Thème> (MOC)]]"   # chaque note pointe vers son index
+tags: [<theme>]
+---
+```
+
+Conventions de contenu (cohérentes avec le skill `doc`, qui produit ces notes) : nom de fichier =
+**terme nu** (`ADSR.md` → quick-switcher direct) ; **définition en une phrase** en tête ; prose,
+jargon expliqué (`style-reponse`) ; granularité **hybride** (regrouper les sous-concepts très proches
+dans une même note plutôt que multiplier les micro-notes) ; section finale `## Voir aussi` avec les
+`[[liens]]` du set ; ton **neutre/référence** (pas de couleur « goût perso »). Le MOC liste toute
+nouvelle note dans la bonne section.
 
 ## Anti-patterns
 

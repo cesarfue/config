@@ -138,6 +138,8 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 - [AI Optimizer — amélioration du harness](skills/ai-optimizer/SKILL.md)
 - [Reviewer — cycle simplify + code-review](skills/reviewer/SKILL.md)
 - [Gestion du vault Obsidian](skills/obsidian-management/SKILL.md)
+- [Documenter un terme — skill `doc` / commande `/doc`](skills/doc/SKILL.md)
+- [Faire un cours sur un sujet — skill `cours` / commande `/cours`](skills/cours/SKILL.md)
 
 ## Règles auto-évolutives — impératif
 
