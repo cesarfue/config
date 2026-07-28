@@ -38,7 +38,10 @@ return {
         "glsl_analyzer",
       },
 
-      automatic_installation = true,
+      -- v2 : exclure ts_ls de l'auto-enable (typescript-tools le gère)
+      automatic_enable = {
+        exclude = { "ts_ls" },
+      },
     },
     dependencies = {
       { "williamboman/mason.nvim", opts = {} },
@@ -143,7 +146,9 @@ return {
           end
 
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gd", function()
+            require("telescope.builtin").lsp_definitions({ reuse_win = true })
+          end, opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
