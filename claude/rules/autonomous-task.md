@@ -76,6 +76,15 @@ En **mode délégué**, l'orchestrateur lance l'agent avec le tool `Agent` en
 et `run_in_background: true` pour une tâche longue. Le bloc à insérer dans le prompt de
 l'agent est donné en fin de fichier.
 
+**Modèle du sous-agent — expliciter, ne jamais hériter en silence.** Par défaut, lancer
+les agents délégués avec `model: "opus"`. Quand la session principale tourne sur un
+modèle de tier supérieur (Fable/Mythos), l'héritage implicite fait payer ce tier à
+chaque sous-agent : c'est un choix de coût qui doit être **explicite**. Fable pour un
+sous-agent uniquement si la tâche est critique ou à forte charge de réflexion
+(algorithme délicat, design ambigu, revue de sécurité pointue) — et le mentionner à
+l'utilisateur au lancement. Les agents de lecture légère (Explore, recherche) peuvent
+descendre à `sonnet`.
+
 Pour **compléter une PR existante** : `git switch <branche-existante>` au lieu de créer
 une branche (voir le cas particulier en fin de fichier).
 
@@ -254,3 +263,6 @@ concerné : ni worktree, ni branche, ni checks.
   → interdit, c'est une décision humaine.
 - **Infra** : committer un secret en clair, ou un plan/état contenant des valeurs sensibles.
 - Ouvrir une PR sur un repo hors allowlist → s'arrêter au push et proposer la commande.
+- Lancer des sous-agents sur Fable par héritage silencieux du modèle de session → coût
+  injustifié ; expliciter `model: "opus"` (défaut), Fable réservé aux tâches critiques /
+  à forte réflexion, sur décision explicite.
