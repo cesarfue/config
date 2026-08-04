@@ -47,7 +47,8 @@ bindkey '^X^E' edit-command-line
 
 alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
 
-export MCP_CLIENT_SECRET="***SECRET-REVOQUE***"
+# Secrets — dans ~/.zsh_secrets, hors du dépôt de config. Jamais versionnés ici.
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
 
 # Google Cloud SDK — chargé seulement s'il est réellement installé
 for _gcloud_dir in \
