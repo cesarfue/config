@@ -49,4 +49,18 @@ alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
 
 export MCP_CLIENT_SECRET="***SECRET-REVOQUE***"
 
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+# Google Cloud SDK — chargé seulement s'il est réellement installé
+for _gcloud_dir in \
+  "$HOME/google-cloud-sdk" \
+  /usr/share/google-cloud-sdk \
+  /usr/lib/google-cloud-sdk \
+  /opt/google-cloud-sdk \
+  "${HOMEBREW_PREFIX:-/home/linuxbrew/.linuxbrew}/share/google-cloud-sdk"
+do
+  if [ -f "$_gcloud_dir/path.zsh.inc" ]; then
+    source "$_gcloud_dir/path.zsh.inc"
+    [ -f "$_gcloud_dir/completion.zsh.inc" ] && source "$_gcloud_dir/completion.zsh.inc"
+    break
+  fi
+done
+unset _gcloud_dir
