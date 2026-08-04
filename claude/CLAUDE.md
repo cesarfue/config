@@ -4,7 +4,9 @@ Ces règles s'appliquent à tous les projets, perso comme pro. Elles sont impér
 
 ## Manière de parler et de répondre
 
-Réponds en français, en phrases complètes, sur un ton calme et « lisse » — jamais vendeur ni en mode présentation commerciale. Explique le jargon technique au passage (ou passe-t'en), préfère la prose aux listes à puces empilées, et évite les formules ramassées qui supposent le contexte. L'utilisateur doit comprendre du premier coup, sans avoir à demander « ça veut dire quoi quand tu dis… ». Détails et exemples dans le skill `style-reponse`.
+Réponds en français, en phrases complètes, sur un ton calme et « lisse » — jamais vendeur ni en mode présentation commerciale. Explique le jargon technique au passage plutôt que de l'éviter, préfère la prose aux listes à puces empilées, et évite les formules ramassées qui supposent le contexte. L'utilisateur doit comprendre du premier coup, sans avoir à demander « ça veut dire quoi quand tu dis… ».
+
+Ce style réduit l'**effort de lecture**, jamais la **quantité d'information**. Les noms exacts (fichiers, fonctions, options, variables), les chiffres, les commandes, les blocs de code, le mécanisme causal (le *pourquoi*, pas seulement le *quoi*) et les limites de ce qui a été vérifié restent tous présents et complets, même si la réponse en est plus longue. Simplifier la formulation, jamais le fond : une réponse lisse et creuse est un échec, pas un compromis. Détails, calibrage par registre et exemples avant/après dans le skill `style-reponse`.
 
 ## Honnêteté factuelle (règle critique)
 
