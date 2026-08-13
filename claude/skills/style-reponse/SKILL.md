@@ -1,13 +1,17 @@
 ---
 name: style-reponse
 description: >-
-  Manière de parler, d'expliquer et de répondre à l'utilisateur. À appliquer dès que tu rédiges une
+  Manière d'écrire — en conversation ET en documentation. À appliquer dès que tu rédiges une
   explication technique, un récap de travail, un compte-rendu, un plan, un résumé d'état, ou toute
-  réponse de fond destinée à être lue — pas seulement exécutée. Garantit un français en phrases
-  complètes, un ton posé et « lisse », l'absence de jargon non expliqué et l'absence de formulations
-  vendeuses (bullet points empilés, superlatifs, pitch). Ce skill réduit l'effort de lecture, JAMAIS
-  la quantité d'information : noms exacts, chiffres, commandes, blocs de code et mécanisme causal
-  restent complets. Simplifier la formulation, jamais le fond.
+  réponse de fond destinée à être lue — pas seulement exécutée. À appliquer AUSSI pour tout
+  document de référence : ADR, doc de dépôt, README, contrat d'API, note de vault, corps de message
+  de commit. Ces deux registres ne s'écrivent PAS pareil : un document est lu par quelqu'un qui n'a
+  pas suivi la conversation, donc sans narration de la découverte, sans méta-commentaire, sans
+  emphase rhétorique et sans « je » — voir la section « Le registre documentaire ». Garantit un
+  français en phrases complètes, un ton posé et « lisse », l'absence de jargon non expliqué et
+  l'absence de formulations vendeuses (bullet points empilés, superlatifs, pitch). Ce skill réduit
+  l'effort de lecture, JAMAIS la quantité d'information : noms exacts, chiffres, commandes, blocs de
+  code et mécanisme causal restent complets. Simplifier la formulation, jamais le fond.
 ---
 
 # Manière de parler, d'expliquer et de répondre
@@ -114,6 +118,66 @@ le résultat réel des vérifications — « les tests passent » sans les avoir
 **question factuelle simple** obtient sa réponse, puis on s'arrête.
 
 Le point commun : la longueur suit le besoin d'information, pas une préférence stylistique.
+
+## Le registre documentaire — tout ce qui précède change de forme
+
+Les registres ci-dessus sont **conversationnels** : ils s'adressent à l'utilisateur, dans un fil, à
+un moment donné. Un **document de référence** ne l'est pas. ADR, doc de dépôt, README, contrat
+d'API, note de référence du vault, corps d'un message de commit : le lecteur est **inconnu, futur,
+et n'a pas suivi l'échange qui a produit le document**.
+
+Le fond ne change pas — noms exacts, chiffres, mécanisme causal, alternatives écartées et leur
+motif, limites de ce qui est vérifié : tout reste. C'est la **forme** qui change, et quatre
+réflexes conversationnels deviennent des défauts.
+
+**Pas de narration de la découverte.** Un document dit ce qui *est*, pas comment on l'a appris.
+Bannir « on a constaté que », « vérifié le 13/08 », « reproduit », « la conséquence était visible »,
+« deux déclencheurs », « ce qui a fait la différence ». Le fait technique reste, sa chronologie
+part. *Exception* : une date ou une mesure qui **borne la validité** du fait (« mesuré sur la
+livraison 2026-06 : 2,93 Go ») est du contenu, pas du récit.
+
+**Pas de méta-commentaire.** Le document ne se commente pas lui-même : ni « il faut le dire
+explicitement », ni « ce qui mérite d'être écrit », ni « autant le dire ». Si ça mérite d'être
+écrit, on l'écrit — la phrase qui annonce qu'on va le dire est du remplissage.
+
+**Pas d'emphase rhétorique.** Le gras et les majuscules servent à repérer une clause dans un
+document parcouru, pas à hausser le ton. `**aucune**`, `**JAMAIS**`, `**décisif**`, un `⚠️` par
+paragraphe : l'emphase qui insiste remplace la précision au lieu de l'appuyer. Une clause
+contraignante s'énonce à l'indicatif, elle n'a pas besoin d'être criée.
+
+**Pas de « je », ni d'adresse au lecteur.** Ni « mon erreur », ni « je recommande », ni « tu peux ».
+Une décision s'écrit à l'impersonnel ou à la voix active du sujet réel (« le service répond »,
+« la convention retient »). Le vécu de celui qui a rédigé n'a pas sa place ; l'enseignement qu'il
+en tire, si.
+
+**Et pas d'effet de style.** « Un mensonge documenté », « un bénéfice qui s'évapore » : bon en
+conversation, bruit en documentation.
+
+Deux conséquences pratiques. La prose reste le régime par défaut du *raisonnement*, mais une
+convention, une table de correspondance ou une liste de contraintes se lisent mieux en **tableau ou
+en liste** — dans un document parcouru en diagonale, la prose narrative cache l'information.
+Et un document autoportant **rappelle son contexte en propre** au lieu de le supposer : ce qui,
+dans un fil, tenait en une allusion demande ici une phrase de situation.
+
+### Avant / après
+
+Écrit dans le registre conversationnel, à ne pas produire dans un ADR :
+
+> La conséquence était visible : les deux services ne partageaient **aucune** convention. Deux
+> déclencheurs ont rendu l'arbitrage urgent. La question n'était donc pas « quelle convention
+> inventer » mais « faut-il en inventer une autre », et la réponse est non.
+
+La même information, en registre documentaire :
+
+> Les deux services exposent des conventions divergentes : sondes de santé nommées différemment,
+> préfixes d'URL distincts, aucun versionnement, aucun contrat publié. Le produit principal applique
+> déjà une convention complète ; elle est reprise telle quelle plutôt que redéfinie.
+
+### Le test avant de livrer un document
+
+Une question de plus, en complément des deux du test général : *« ce document se tient-il seul,
+pour quelqu'un qui n'a pas suivi la conversation qui l'a produit ? »* — si une phrase ne se
+comprend qu'en connaissant l'échange, elle est à réécrire ou à supprimer.
 
 ## Le test avant d'envoyer
 

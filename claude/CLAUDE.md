@@ -133,7 +133,7 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 
 - [Commits et utilisation git](rules/git-commits.md)
 - [Implémentation](rules/implementation.md)
-- [Style de réponse](skills/style-reponse/SKILL.md)
+- [Style d'écriture — réponses **et** documentation](skills/style-reponse/SKILL.md) — les deux registres ne s'écrivent pas pareil ; un ADR, une doc de dépôt ou une note de référence se lisent sans le contexte de la conversation qui les a produits (cf. § « Le registre documentaire »)
 - [Tâches autonomes — protocole](rules/autonomous-task.md)
 - [Repos — profil et politique de PR](rules/repos.md)
 - [Product Owner — définition de tâche](skills/product-owner/SKILL.md)
