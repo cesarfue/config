@@ -42,11 +42,21 @@ Le skill `product-owner` produit cette note proprement — l'utiliser quand on c
 
 L'agent reçoit le chemin de la note dans son prompt et a **l'obligation** d'y écrire
 le compte rendu (fichiers modifiés, décisions prises, écarts par rapport aux specs,
-résultats des checks). Ajouter aussi un item dans `~/vault/projects/<projet>/tasks.md` :
+résultats des checks).
 
-```
-- [ ] <Description courte> #<projet> → [[tasks/<slug>]]
-```
+Puis inscrire la tâche **selon le régime de suivi du projet** (cf. `skills/obsidian-management`) :
+
+- **Projet adossé à Jira** (accoreboot, accoreboot-infra, pivot) : le ticket **est** l'inscription.
+  Vérifier qu'il existe, qu'il est dans le bon état, et le citer dans la note. **Ne pas** créer de
+  `tasks.md` ni de case à cocher dans le vault : ce serait un second backlog qui divergerait du
+  premier. Une tâche sans ticket va dans la note « Reliquats hors Jira — à ticketiser », jamais
+  dans le hub.
+- **Projet perso sans Jira** : Obsidian fait foi. Ajouter l'item dans
+  `~/vault/projects/<projet>/tasks.md`, en le créant s'il n'existe pas :
+
+  ```
+  - [ ] <Description courte> #<projet> → [[tasks/<slug>]]
+  ```
 
 ---
 
@@ -205,7 +215,10 @@ plan et de cadrage qui décrivaient l'état antérieur : `grep -rl` sur le terme
 (« Réconcilier une note périmée par une décision »). Ce point est **dans** le compte rendu : dire
 quelles notes ont été corrigées, ou qu'aucune ne l'était.
 
-Marquer l'item dans `tasks.md` comme `- [x]`. Puis nettoyer le worktree si plus utile :
+Clore la tâche selon le régime (cf. étape 0) : **transition du ticket Jira** pour un projet
+adossé à Jira — et n'y déclarer terminé que ce que la definition of done couvre réellement, sinon
+sortir le reste dans un ticket dédié plutôt que de fermer sur un périmètre plus étroit ;
+`- [x]` dans `tasks.md` pour un projet perso. Puis nettoyer le worktree si plus utile :
 
 ```bash
 git worktree remove ../<projet>-<nom>
@@ -248,7 +261,9 @@ Pas de worktree à créer, pas de base à recalculer.
 7. PUSH : pousse ta branche (`git push -u origin <branche>`). N'ouvre PAS de PR toi-même —
    l'orchestrateur décide selon repos.md.
 8. RAPPORT : dans `## Compte rendu` — fichiers, décisions, écarts, résultats des checks,
-   nom de branche. Puis coche l'item dans tasks.md.
+   nom de branche. Dis aussi quelles notes du vault ta tâche a rendues fausses (option
+   abandonnée, ressource renommée) et comment tu les as traitées, ou qu'aucune ne l'était.
+   Ne coche pas de case dans un `tasks.md` sur un projet Jira : le ticket fait foi.
 ```
 
 Un agent **purement lecture** (Explore, recherche, résumé, audit read-only) n'est PAS
