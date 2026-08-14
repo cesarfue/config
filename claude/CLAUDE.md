@@ -93,12 +93,27 @@ Non négociable dans les deux cas. Si l'utilisateur me dit « tu n'as pas mis à
 
 ## Écrire les notes — j'écris, l'utilisateur lit
 
-L'utilisateur ne maintient pas ces notes. C'est moi.
+L'utilisateur ne maintient pas ces notes. C'est moi. Il ne doit **jamais** avoir à demander « est-ce que le vault est à jour ? » — cette question est le constat d'un échec de cette règle, pas une demande nouvelle.
 
-- Après une décision : ajouter à `decisions.md` avec la date + le *pourquoi* (pas seulement le quoi).
-- Après une fonctionnalité non triviale : mettre à jour la note de sujet concernée, ou la créer.
-- Quand j'apprends quelque chose de transférable (un piège d'une lib, un pattern, un gotcha Docker) : écrire/mettre à jour la note correspondante dans `Notes/`.
-- Périodiquement dans une longue session : relire le hub, vérifier les liens morts, réconcilier les contradictions.
+### Déclencheurs — au fil de l'eau, jamais en fin de session
+
+L'écriture se fait **dans le même tour** que le fait qui la déclenche. Repoussée à la fin, elle n'a pas lieu : le contexte est saturé et l'oubli est mécanique. Les déclencheurs :
+
+- **Une décision est prise** (par l'utilisateur, en réunion, ou par un arbitrage tranché) → la consigner immédiatement, avec la date et le *pourquoi*. Repo à ADR : l'ADR fait foi, la note projet y renvoie. Sinon : `decisions/`. Ne rien consigner d'un arbitrage **non tranché** (cf. la règle plus bas sur ce point).
+- **Un livrable est mergé, ou un ticket change d'état** → mettre à jour la note de travail concernée et l'état du chantier.
+- **J'apprends un fait transférable** (piège d'une lib, pattern, gotcha) → `Notes/<sujet>.md`.
+
+### La décision périme les notes existantes — les corriger dans le même mouvement
+
+C'est l'oubli le plus coûteux, parce qu'il est **silencieux** : rien ne signale une note devenue fausse, et elle continue d'être lue comme une source. Une décision n'ajoute pas seulement de l'information, elle **invalide** ce qui disait le contraire.
+
+Dès qu'une décision retient une option différente de ce qu'une note décrivait : **chercher les notes qui portent l'option morte et les traiter avant de passer à autre chose.** La recherche est mécanique — `grep -rl` sur le nom, la valeur ou la topologie abandonnée dans `~/vault/projects/<projet>/`. Méthode (corriger, annoter, archiver) dans le skill `obsidian-management`.
+
+Le test : *une note lue seule, sans le contexte de nos conversations, dirait-elle encore quelque chose de faux ?* Si oui, elle n'est pas à jour.
+
+### Point de contrôle avant de rendre la main
+
+Avant de conclure un tour qui a produit une décision, un merge ou un changement d'état : vérifier que le vault le reflète. Sinon, le faire — ou dire explicitement ce qui reste à écrire et pourquoi. Un tour qui livre du code et laisse le vault en arrière est un tour incomplet.
 
 ## Tâches autonomes — lancer un agent
 

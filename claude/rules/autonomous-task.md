@@ -198,6 +198,13 @@ Aucun merge automatique dans les deux cas.
 - Résultats des checks du profil (et, en infra, le résumé du `plan`)
 - Nom de la branche, et lien de PR si ouverte
 
+Puis **réconcilier les notes que la tâche a périmées** — pas seulement écrire la sienne. Une tâche
+qui retient une option, renomme une ressource ou abandonne une topologie rend fausses les notes de
+plan et de cadrage qui décrivaient l'état antérieur : `grep -rl` sur le terme mort dans
+`~/vault/projects/<projet>/`, puis traitement selon la méthode du skill `obsidian-management`
+(« Réconcilier une note périmée par une décision »). Ce point est **dans** le compte rendu : dire
+quelles notes ont été corrigées, ou qu'aucune ne l'était.
+
 Marquer l'item dans `tasks.md` comme `- [x]`. Puis nettoyer le worktree si plus utile :
 
 ```bash

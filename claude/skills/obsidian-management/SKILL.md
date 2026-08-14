@@ -119,6 +119,32 @@ Repère : un projet est « Jira-backé » s'il a un préfixe de ticket et un boa
 - **zsh** : variables non quotées non découpées, et un glob sans correspondance lève une erreur →
   préférer des tableaux et `find … -name` aux boucles `for f in *.glob`.
 
+## Réconcilier une note périmée par une décision (méthode)
+
+Déclenchée par la règle du `CLAUDE.md` global : une décision qui retient une autre option rend
+fausses les notes qui décrivaient l'ancienne. Elles ne le signalent pas — d'où la recherche
+mécanique.
+
+**1. Trouver.** `grep -rl` dans `~/vault/projects/<projet>/` sur le **terme mort** : nom de
+ressource abandonné, valeur remplacée, topologie écartée. Recouper avec un `grep -rl` sur le
+numéro de l'ADR qui a tranché : une note qui cite le terme mort **sans** citer l'ADR est périmée
+en silence, c'est le cas le plus dangereux ; une note qui cite les deux est peut-être déjà annotée.
+
+**2. Choisir le traitement, par nature de la mention.**
+
+| Ce que porte la note | Traitement |
+|---|---|
+| Une **valeur** ponctuelle (nom de cible, de bucket, de fichier) | Corriger sur place, en datant la correction et en nommant l'ADR qui l'impose |
+| Un **raisonnement** encore valable, dans un décor périmé (note de plan, de cadrage) | Encadré `> [!warning]` en tête : ce qui a changé, la table de correspondance ancien → nouveau, et **ce qui reste valable** |
+| Un **arbitrage historique** entre options (« deux options : A ou B ») | Ne pas réécrire les termes de l'arbitrage — ils documentent la délibération. Ajouter dessous ce qui a été tranché, y compris quand c'est une troisième option |
+| Une note **entièrement** dépassée | Archiver, ne pas supprimer : le *pourquoi* d'une voie abandonnée se relit |
+
+**3. Vérifier la substitution.** Un `sed` global sur un nom de ressource touche aussi les passages
+qui citent l'ancien nom **volontairement** (avertissements, historiques d'arbitrage). Relire les
+occurrences restantes une par une après le remplacement, et rétablir celles qui étaient
+intentionnelles — c'est arrivé, et une phrase d'avertissement qui se corrige elle-même devient
+incompréhensible.
+
 ## Frontmatter (style Zettelkasten, comme les notes existantes)
 
 ```yaml
@@ -167,4 +193,11 @@ nouvelle note dans la bonne section.
 - Déplacer un lot sur le seul titre, sans lire le contenu → mauvais classement.
 - Recopier/maintenir dans Obsidian des décisions qui ont déjà leurs ADR en repo → dérive.
 - Renommer une note en la déplaçant sans poser d'alias → lien cassé.
+- **Écrire le vault en fin de session, ou attendre que l'utilisateur demande s'il est à jour** →
+  l'écriture se fait dans le tour qui produit le fait (cf. `CLAUDE.md`, « Écrire les notes »).
+- **Consigner une décision sans corriger les notes qu'elle périme** → deux sources qui se
+  contredisent, et rien ne dit laquelle est bonne. Appliquer la méthode de réconciliation ci-dessus.
+- `sed` global sur un nom de ressource abandonné, sans relire les occurrences restantes → les
+  mentions volontaires de l'ancien nom (avertissements, arbitrages historiques) se corrigent
+  elles-mêmes et perdent leur sens.
 - Toucher `Journal/`, `Templates/`, `Excalidraw/` ; commiter le vault à la place de l'utilisateur.
