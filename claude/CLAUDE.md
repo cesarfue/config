@@ -86,7 +86,7 @@ Une section d'une note existante devient un fichier à part (dans le bon sous-do
 
 Le suivi des tâches a **deux régimes**, selon le projet (détail dans le skill `obsidian-management`) :
 
-- **Projet perso (pas de Jira) → Obsidian fait foi.** Maintenir les tâches dans le vault (`tasks/` et/ou cases obsidian-tasks agrégées par le hub). Ouvrir en début de session, ajouter une tâche dès que l'utilisateur mentionne un à-faire/follow-up, cocher (`- [x]`) **au moment** où c'est terminé, supprimer les items périmés. Syntaxe : `- [ ] Description #<projet> 📅 YYYY-MM-DD`.
+- **Projet perso (pas de Jira) → Obsidian fait foi.** Maintenir une note par tâche dans `tasks/`, chacune portant sa case sous son titre, agrégées par le bloc `tasks` du hub — pas de fichier d'index à la racine du dossier projet. Ouvrir en début de session, ajouter une tâche dès que l'utilisateur mentionne un à-faire/follow-up, cocher (`- [x]`) **au moment** où c'est terminé, supprimer les items périmés. Syntaxe : `- [ ] Description #<projet> 📅 YYYY-MM-DD`.
 - **Gros projet adossé à Jira (accoreboot, accoreboot-infra) → Jira fait foi, Obsidian suit.** Ne pas tenir de backlog dans le vault ; tenir Jira à jour. Les notes de `tasks/` sont des notes de travail par ticket, un item non ticketisé va dans une note « à ticketiser », jamais dans le hub.
 
 Non négociable dans les deux cas. Si l'utilisateur me dit « tu n'as pas mis à jour la TODO » (ou Jira), c'est un échec de cette règle, pas une demande nouvelle.

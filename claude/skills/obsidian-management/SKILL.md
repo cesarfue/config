@@ -89,9 +89,11 @@ La décision vit **là où est la source de vérité du projet** :
 
 ## Suivi des tâches — deux régimes (source de vérité)
 
-- **Projet perso (pas de Jira)** → **Obsidian est la source de vérité**. Les tâches vivent dans le
-  vault (`tasks/` et/ou cases obsidian-tasks) ; le hub agrège les tâches ouvertes via un bloc
-  `tasks`. Claude les maintient (discipline TODO).
+- **Projet perso (pas de Jira)** → **Obsidian est la source de vérité**. Une note par tâche dans
+  `tasks/`, portant **sa propre case** juste sous son titre (`- [ ] <description> #<projet>`) ; le
+  hub agrège les cases ouvertes via un bloc `tasks`. **Aucun fichier d'index** (`tasks.md`,
+  `TODO.md`) à la racine du dossier projet : la racine n'admet que le hub, et un index tenu à la
+  main divergerait du bloc `tasks`. Claude les maintient (discipline TODO).
 - **Gros projet adossé à Jira (préfixe ACR-…, board Jira)** → **Jira est la source de vérité,
   Obsidian suit**. Le hub ne tient **aucun backlog ni checklist recopiant Jira** (anti-pattern).
   Les notes de `tasks/` sont des **notes de travail par ticket** (contexte, analyse) qui
@@ -112,7 +114,8 @@ Repère : un projet est « Jira-backé » s'il a un préfixe de ticket et un boa
   lot, déléguer le tri de lecture à un agent (`Explore`) puis exécuter les déplacements.
 - **Garde-fou sur les lots** : construire la liste, compter, n'exécuter le `mv` que si le total est
   dans une plage attendue (évite un glob qui a mal matché). Après coup, vérifier que la racine ne
-  contient que le hub.
+  contient que le hub : `ls ~/vault/projects/<projet>/*.md` doit renvoyer exactement un fichier,
+  `<projet>.md`.
 - **git du vault** : la plupart des notes ne sont **pas** suivies par git → `mv` de fichiers
   classique (`git mv` échoue sur les non-suivis). **Ne pas commiter le vault** : l'utilisateur le
   synchronise via Obsidian.
@@ -187,7 +190,8 @@ nouvelle note dans la bonne section.
 
 ## Anti-patterns
 
-- Laisser des notes à la racine du dossier projet (hors hub) → tout ranger par type.
+- Laisser des notes à la racine du dossier projet (hors hub) → tout ranger par type. En
+  particulier un `tasks.md` / `TODO.md` d'index : la case vit dans la note de tâche, le hub agrège.
 - Un hub qui devient un journal / un backlog manuel recopiant Jira → le hub reste stable et
   renvoie à la source de vérité (Jira, ADR).
 - Déplacer un lot sur le seul titre, sans lire le contenu → mauvais classement.

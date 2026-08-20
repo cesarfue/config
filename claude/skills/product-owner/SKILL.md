@@ -19,7 +19,15 @@ Reformule en une phrase ce que l'utilisateur veut vraiment obtenir (résultat fi
 Crée `~/vault/projects/<project>/tasks/<slug>.md` avec les sections suivantes :
 
 ```markdown
+---
+created: YYYY-MM-DD
+in: "[[<projet>]]"
+tags: [<projet>]
+---
+
 # <Titre de la tâche>
+
+- [ ] <Description courte> #<projet>
 
 ## Contexte
 
@@ -59,12 +67,15 @@ Checklist que l'agent coche avant de se déclarer terminé :
 - Résultats CI :
 ```
 
-## 3. Mettre à jour tasks.md
+## 3. Inscrire la tâche selon le régime du projet
 
-Ajouter dans `tasks.md` :
-```
-- [ ] <Description courte> #<project> → [[tasks/<slug>]]
-```
+- **Projet perso (pas de Jira)** : la case posée sous le titre de la note **est** l'inscription, et
+  le bloc `tasks` du hub l'agrège. Ne créer **aucun** fichier d'index (`tasks.md`, `TODO.md`) à la
+  racine du dossier projet, qui n'admet que le hub.
+- **Projet adossé à Jira** (accoreboot, accoreboot-infra, pivot) : le ticket **est** l'inscription.
+  Le citer dans la note, et ne poser aucune case dans le vault.
+
+Détail des deux régimes et du layout : skill `obsidian-management`.
 
 ## 4. Briefer l'agent
 

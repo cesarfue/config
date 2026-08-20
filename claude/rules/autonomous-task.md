@@ -48,14 +48,16 @@ Puis inscrire la tâche **selon le régime de suivi du projet** (cf. `skills/obs
 
 - **Projet adossé à Jira** (accoreboot, accoreboot-infra, pivot) : le ticket **est** l'inscription.
   Vérifier qu'il existe, qu'il est dans le bon état, et le citer dans la note. **Ne pas** créer de
-  `tasks.md` ni de case à cocher dans le vault : ce serait un second backlog qui divergerait du
+  case à cocher ni de fichier d'index dans le vault : ce serait un second backlog qui divergerait du
   premier. Une tâche sans ticket va dans la note « Reliquats hors Jira — à ticketiser », jamais
   dans le hub.
-- **Projet perso sans Jira** : Obsidian fait foi. Ajouter l'item dans
-  `~/vault/projects/<projet>/tasks.md`, en le créant s'il n'existe pas :
+- **Projet perso sans Jira** : Obsidian fait foi. La case à cocher vit **dans la note de tâche
+  elle-même**, placée juste sous son titre ; le bloc `tasks` du hub l'agrège. **Aucun fichier
+  d'index** à la racine du dossier projet, qui n'accueille que le hub — le rangement appartient au
+  skill `obsidian-management` (« Layout par projet »), ce protocole ne le redit pas :
 
   ```
-  - [ ] <Description courte> #<projet> → [[tasks/<slug>]]
+  - [ ] <Description courte> #<projet>
   ```
 
 ---
@@ -218,7 +220,7 @@ quelles notes ont été corrigées, ou qu'aucune ne l'était.
 Clore la tâche selon le régime (cf. étape 0) : **transition du ticket Jira** pour un projet
 adossé à Jira — et n'y déclarer terminé que ce que la definition of done couvre réellement, sinon
 sortir le reste dans un ticket dédié plutôt que de fermer sur un périmètre plus étroit ;
-`- [x]` dans `tasks.md` pour un projet perso. Puis nettoyer le worktree si plus utile :
+`- [x]` sur la case de la note de tâche pour un projet perso. Puis nettoyer le worktree si plus utile :
 
 ```bash
 git worktree remove ../<projet>-<nom>
@@ -263,7 +265,8 @@ Pas de worktree à créer, pas de base à recalculer.
 8. RAPPORT : dans `## Compte rendu` — fichiers, décisions, écarts, résultats des checks,
    nom de branche. Dis aussi quelles notes du vault ta tâche a rendues fausses (option
    abandonnée, ressource renommée) et comment tu les as traitées, ou qu'aucune ne l'était.
-   Ne coche pas de case dans un `tasks.md` sur un projet Jira : le ticket fait foi.
+   Sur un projet perso, coche la case en tête de ta note de tâche. Sur un projet Jira, ne coche
+   aucune case dans le vault : le ticket fait foi.
 ```
 
 Un agent **purement lecture** (Explore, recherche, résumé, audit read-only) n'est PAS
@@ -285,6 +288,10 @@ concerné : ni worktree, ni branche, ni checks.
   → interdit, c'est une décision humaine.
 - **Infra** : committer un secret en clair, ou un plan/état contenant des valeurs sensibles.
 - Ouvrir une PR sur un repo hors allowlist → s'arrêter au push et proposer la commande.
+- Créer un fichier d'index de tâches (`tasks.md`, `TODO.md`) à la racine d'un dossier projet du
+  vault → contredit le layout, qui n'y admet que le hub, et fait vivre un second backlog à côté du
+  bloc `tasks` du hub. La case vit dans la note de tâche ; vérifier avec
+  `ls ~/vault/projects/<projet>/*.md`, qui doit renvoyer le seul `<projet>.md`.
 - Lancer des sous-agents sur Fable par héritage silencieux du modèle de session → coût
   injustifié ; expliciter `model: "opus"` (défaut), Fable réservé aux tâches critiques /
   à forte réflexion, sur décision explicite.
