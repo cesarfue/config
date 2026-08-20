@@ -4,7 +4,8 @@ description: >-
   Manière d'écrire — en conversation ET en documentation. À appliquer dès que tu rédiges une
   explication technique, un récap de travail, un compte-rendu, un plan, un résumé d'état, ou toute
   réponse de fond destinée à être lue — pas seulement exécutée. À appliquer AUSSI pour tout
-  document de référence : ADR, doc de dépôt, README, contrat d'API, note de vault, corps de message
+  document de référence : ADR, doc de dépôt, README, contrat d'API, note de vault, description de
+  pull request, corps de message
   de commit. Ces deux registres ne s'écrivent PAS pareil : un document est lu par quelqu'un qui n'a
   pas suivi la conversation, donc sans narration de la découverte, sans méta-commentaire, sans
   emphase rhétorique et sans « je » — voir la section « Le registre documentaire ». Garantit un
@@ -119,12 +120,35 @@ le résultat réel des vérifications — « les tests passent » sans les avoir
 
 Le point commun : la longueur suit le besoin d'information, pas une préférence stylistique.
 
+## Une demande de précision peut être une demande de simplification
+
+Un signe précis à reconnaître : l'utilisateur répond à une explication déjà dense par une hypothèse
+courte censée en résumer l'essentiel (« c'est pas plus compliqué que ça, si ? », « en gros c'est
+juste X ? »). Ça ne demande pas un complément — ça signale que l'explication d'avant était déjà trop
+chargée pour un sujet simple, et que ce qui est attendu est la même réponse, en plus court et en plus
+simple. Renvoyer à ce moment-là une nouvelle couche de détail — même correcte, même nouvelle — répète
+l'erreur qui a provoqué la question. La bonne réponse confirme ou corrige l'hypothèse en une ou deux
+phrases, sans réouvrir le dossier.
+
+Le correctif se joue surtout en amont, avant que la question de clarification n'arrive. Une question
+exploratoire ou une demande d'avis (« comment on fait X ? », « qu'en penses-tu ? ») appelle une
+réponse courte dès le premier tour, pas une revue exhaustive du sujet avec citations de fichiers et
+de lignes de code : une recommandation et son principal compromis suffisent. Le détail ne se déploie
+que si l'utilisateur le redemande explicitement — jamais par anticipation, au prétexte qu'il pourrait
+être utile.
+
 ## Le registre documentaire — tout ce qui précède change de forme
 
 Les registres ci-dessus sont **conversationnels** : ils s'adressent à l'utilisateur, dans un fil, à
 un moment donné. Un **document de référence** ne l'est pas. ADR, doc de dépôt, README, contrat
-d'API, note de référence du vault, corps d'un message de commit : le lecteur est **inconnu, futur,
-et n'a pas suivi l'échange qui a produit le document**.
+d'API, note de référence du vault, corps d'un message de commit, **description de pull request** :
+le lecteur est **inconnu, futur, et n'a pas suivi l'échange qui a produit le document**.
+
+Cette liste est un rappel, pas une définition. Le critère est le lecteur, pas le support : dès qu'un
+texte sera lu par quelqu'un qui n'a pas suivi la conversation, il relève de ce registre. Le cas de la
+description de PR l'a montré — absente de la liste, elle a été rédigée comme un message de chat alors
+qu'elle est lue par un relecteur qui ne connaît ni la demande initiale ni le chemin parcouru. Devant
+un support non listé, appliquer le critère plutôt que chercher son nom ici.
 
 Le fond ne change pas — noms exacts, chiffres, mécanisme causal, alternatives écartées et leur
 motif, limites de ce qui est vérifié : tout reste. C'est la **forme** qui change, et quatre

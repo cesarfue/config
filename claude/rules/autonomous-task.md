@@ -200,6 +200,25 @@ Consulter l'allowlist « PR auto » de `rules/repos.md` :
 
 Aucun merge automatique dans les deux cas.
 
+**Le corps de la PR est un document, pas un message de chat.** Il relève du registre
+documentaire du skill `style-reponse` : son lecteur est un relecteur qui n'a pas suivi
+la conversation. Donc pas de narration de la découverte (« ce que la revue a changé »,
+« le point de départ »), pas de méta-commentaire, pas d'emphase rhétorique, pas de
+« je ». Le fond ne bouge pas — noms exacts, chiffres, mécanisme, sorties de commande,
+écarts assumés et leur motif. Invoquer réellement `style-reponse` avant de rédiger, ne
+pas se fier au souvenir qu'on en a. Même exigence pour le corps des messages de commit.
+
+⚠️ `gh pr create --fill` reprend le dernier message de commit : sur une branche à
+plusieurs commits, le résultat ne décrit qu'une partie du lot. Rédiger le corps
+(`--body-file`) dès que la branche porte plus d'un commit.
+
+⚠️ `gh pr edit` échoue sur les dépôts liés à un projet classique GitHub, avec une erreur
+GraphQL (`repository.pullRequest.projectCards`) et **sans** modifier la PR. Vérifier le
+résultat, ou passer directement par REST :
+```bash
+gh api -X PATCH repos/:owner/:repo/pulls/<n> -F body=@corps.md
+```
+
 ## 8. Compte rendu dans la note + cleanup
 
 Écrire le bilan dans `## Compte rendu` de la note (étape 0) :
@@ -288,6 +307,9 @@ concerné : ni worktree, ni branche, ni checks.
   → interdit, c'est une décision humaine.
 - **Infra** : committer un secret en clair, ou un plan/état contenant des valeurs sensibles.
 - Ouvrir une PR sur un repo hors allowlist → s'arrêter au push et proposer la commande.
+- Rédiger le corps d'une PR (ou d'un commit) au registre du chat — récit de la découverte,
+  gras d'insistance, « ce que la revue a corrigé » → c'est un document lu par quelqu'un qui
+  n'a pas suivi l'échange ; appliquer le registre documentaire de `style-reponse`.
 - Créer un fichier d'index de tâches (`tasks.md`, `TODO.md`) à la racine d'un dossier projet du
   vault → contredit le layout, qui n'y admet que le hub, et fait vivre un second backlog à côté du
   bloc `tasks` du hub. La case vit dans la note de tâche ; vérifier avec
