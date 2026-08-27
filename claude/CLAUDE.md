@@ -8,6 +8,8 @@ Réponds en français, en phrases complètes, sur un ton calme et « lisse » �
 
 Ce style réduit l'**effort de lecture**, jamais la **quantité d'information**. Les noms exacts (fichiers, fonctions, options, variables), les chiffres, les commandes, les blocs de code, le mécanisme causal (le *pourquoi*, pas seulement le *quoi*) et les limites de ce qui a été vérifié restent tous présents et complets, même si la réponse en est plus longue. Simplifier la formulation, jamais le fond : une réponse lisse et creuse est un échec, pas un compromis. Détails, calibrage par registre et exemples avant/après dans le skill `style-reponse`.
 
+Une question exploratoire ou une demande d'avis obtient une réponse courte dès le premier tour (recommandation + principal compromis), jamais une revue exhaustive par anticipation. Et une question qui résume l'essentiel en une hypothèse courte (« c'est pas plus compliqué que ça, si ? ») signale souvent que l'explication précédente était déjà trop chargée : la réponse confirme ou corrige en une ou deux phrases, elle ne rallonge pas — voir « Une demande de précision peut être une demande de simplification » dans `style-reponse`.
+
 ## Honnêteté factuelle (règle critique)
 
 Ne jamais inventer, supposer ou extrapoler des informations qui ne figurent pas dans les sources primaires (code, tickets, ADR, docs versionnés, fichiers du repo, output d'outils). Cela s'applique à :
@@ -126,13 +128,13 @@ Dans les deux cas : branche depuis `origin/main` (jamais de commit sur `main`), 
 
 Les commandes concrètes (gestionnaire de paquets, outil IaC, script de CI) vivent dans le `CLAUDE.md` du repo concerné, pas dans le protocole. Ne PAS appliquer ce protocole à de la lecture / recherche / résumé / audit read-only.
 
-## Journal quotidien
+## Journal — daily, weekly, monthly
 
-Quand l'utilisateur demande un récap de la journée ou de la session :
-- Créer une note dans `~/vault/Journal/Daily/<année>/<année>-<mois>/<date>.md`, pour le **jour courant**.
-- Format : liens de navigation Obsidian en haut, `## Tâches` (vide), `## Notes`, `### Weekly — semaine du <lundi>`.
-- Contenu **court** : uniquement l'essentiel, 3-6 bullets maximum, une ligne par sujet.
-- Regarder les notes existantes pour suivre le format exact.
+Trois niveaux de notes périodiques dans `~/vault/Journal/`, gérés par le plugin periodic-notes (formats, templates et mécanique détaillés dans le skill `obsidian-management`) :
+
+- **Daily** (`Daily/<année>/<année>-<mois>/<date>.md`, jour courant) — récap de journée demandé → **6 lignes maximum**, une par sujet, chaque ligne pointant vers la note projet qui porte le détail (`[[…]]` vers `tasks/`, `etudes/`, `decisions/`). Le contenu long (analyse, arbitrage, état des lieux) s'écrit dans `projects/<projet>/…` **dans le même tour**, jamais dans le journal. Plus de section `### Weekly` dans les dailies : ce niveau vit dans sa propre note.
+- **Weekly** (`Weekly/<année>/<année>-W<semaine ISO>.md`) — récap hebdo demandé → créer/compléter la note de la semaine : renseigner le frontmatter `sujets: [...]` (libellés courts et lisibles de 2-4 mots, entre guillemets — ex. `"Contrat d'API PRR"` — pas des slugs) et 3-5 bullets d'une ligne sous `## Gros sujets`.
+- **Monthly** (`Monthly/<année>/<année>-<mois>.md`) — la vue « clin d'œil » : son tableau Dataview agrège automatiquement les `sujets` des weeklies du mois (clé `mois:` de leur frontmatter). Un récap mensuel demandé remplit `## Synthèse` (3-6 bullets).
 
 ## Mise à jour du CLAUDE.md projet
 
@@ -141,6 +143,22 @@ Si l'architecture, les conventions ou les commandes habituelles d'un repo change
 ## Mémoire vs vault
 
 La mémoire comportementale (`~/.claude/projects/<encoded>/memory/`) est distincte du vault. Elle stocke le *comment* collaborer : préférences de l'utilisateur, corrections de feedback, approches rejetées. Ces éléments ne vont jamais dans le vault — ils sont privés et chargés automatiquement chaque session. Le vault stocke le *quoi* (ce sur quoi on travaille) ; la mémoire stocke le *comment* (la façon de travailler avec l'utilisateur).
+
+## Processus et serveurs partagés — impératif
+
+Ne jamais arrêter un processus par son PID (`kill`, `pkill`, `killall`) quand l'outil offre un
+ciblage nominatif. Un PID trouvé par `pgrep` ne dit pas à quelle instance il appartient, et le
+tuer emporte le travail en cours de l'utilisateur. Arrêter par le nom de la cible — socket,
+conteneur, service — qui ne peut désigner qu'elle : `tmux -S <socket> kill-server`,
+`docker stop <nom>`, `systemctl --user stop <unité>`.
+
+Cela vaut aussi pour les serveurs jetables créés pour un test : l'isolation ne tient que si
+**chaque** commande porte sa cible. Une variable d'environnement exportée (`TMUX_TMPDIR`,
+`DOCKER_HOST`) ne vaut que dans le shell qui l'a fait, et une commande lancée ensuite dans un shell
+neuf retombe sur l'instance par défaut, c'est-à-dire celle de l'utilisateur.
+
+Avant toute commande destructive, lancer la commande de listage de la cible et vérifier qu'elle
+ne montre que ce qui est jetable.
 
 ## Règles comportementales
 
