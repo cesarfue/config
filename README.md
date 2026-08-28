@@ -28,6 +28,6 @@ Les outils appelés par la configuration vivent dans leurs propres dépôts, don
 | `sidecar` | `prefix + f`, `prefix + F` | TUI de gestion des sessions tmux |
 | `regie.nvim` | `nvim/lua/plugins/claude.lua` | régie Neovim du travail de l'agent |
 
-Une URL vide dans `bootstrap.sh` signifie que le dépôt n'existe que sur la
-machine d'origine : il reste à publier avant qu'une autre machine puisse s'en
-servir.
+Les deux sont des dépôts privés joints par l'alias SSH `github-perso`, qui vit
+dans `~/.ssh/config` — hors de ce dépôt, une clé privée ne se versionnant pas.
+`bootstrap.sh` vérifie l'alias et affiche le bloc à coller s'il manque.

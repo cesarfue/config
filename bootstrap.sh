@@ -27,6 +27,23 @@ else
   info "plugins à installer depuis tmux : prefix + I"
 fi
 
+etape "accès aux dépôts privés"
+# Les outils vivent dans des dépôts privés, joints par l'alias SSH
+# `github-perso` — défini dans ~/.ssh/config, que ce dépôt ne porte pas : une
+# clé privée ne se versionne pas. Sans lui, les clones échouent.
+# La réponse est capturée plutôt que filtrée par un tube : `ssh -T` sort
+# toujours en erreur chez GitHub, et `pipefail` ferait échouer le test réussi.
+reponse=$(ssh -o StrictHostKeyChecking=accept-new -o BatchMode=yes -T git@github-perso 2>&1)
+if [[ "$reponse" == *"successfully authenticated"* ]]; then
+  info "alias github-perso opérationnel"
+else
+  manques+=("alias SSH github-perso : copier la clé perso en ~/.ssh/id_ed25519_perso, puis ajouter à ~/.ssh/config :
+      Host github-perso
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_ed25519_perso")
+fi
+
 etape "outils compilés"
 # Dépôts que la config appelle sans les contenir. Chacun porte son URL ici :
 # tant qu'elle est vide, le dépôt n'existe que sur la machine d'origine.
@@ -45,8 +62,8 @@ installer_outil() { # <nom> <url> <commande d'installation>
     || manques+=("$nom : l'installation a échoué (cf. $dir)")
 }
 
-SIDECAR_URL=""
-REGIE_URL=""
+SIDECAR_URL="git@github-perso:cesarfue/sidecar.git"
+REGIE_URL="git@github-perso:cesarfue/regie.nvim.git"
 installer_outil sidecar "$SIDECAR_URL" "cargo install --path ."
 # regie.nvim est chargé par lazy depuis son dossier : rien à compiler.
 installer_outil regie.nvim "$REGIE_URL" "true"
