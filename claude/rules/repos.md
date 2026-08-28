@@ -32,3 +32,15 @@ l'exécuter. Par prudence, **aucun repo d'infra ne devrait figurer ici**.
 Pour autoriser un repo : ajouter une ligne avec son nom de dossier (ou un motif
 présent dans l'URL du remote, ex. `github.com/<moi>/`). Retirer la ligne pour révoquer.
 -->
+
+## 3. Merge direct, sans PR
+
+Repos où la revue par pull request n'a pas d'objet — un seul contributeur, aucun relecteur à
+attendre. Après les checks du profil, la branche est fusionnée dans `main` en avance rapide, `main`
+est poussé, et la branche est supprimée localement comme à distance. Le travail passe toujours par
+une branche : elle isole les checks, et son absence de PR ne dispense d'aucun d'eux.
+
+| Repo (nom ou motif) | Raison |
+|---------------------|--------|
+| regie.nvim | repo perso, seul contributeur |
+| sidecar | repo perso, seul contributeur |
