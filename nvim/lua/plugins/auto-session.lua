@@ -15,6 +15,24 @@ return {
 		-- La fonction renvoie une commande qui reconstruit la liste, écrite dans le fichier
 		-- de session et rejouée à la restauration.
 		save_extra_cmds = {
+			-- Rouvre la régie telle qu'elle était. Son onglet n'apparaît pas dans le
+			-- fichier de session : ses buffers ne sont ni listés ni adossés à un
+			-- fichier, donc mksession les saute. L'état passe par cette commande.
+			function()
+				local ok, regie = pcall(require, "regie")
+				if not ok then
+					return nil
+				end
+				local st = regie.state()
+				if not st then
+					return nil
+				end
+				return {
+					("lua pcall(function() require('regie').restore(%s) end)"):format(
+						vim.inspect(st, { newline = " ", indent = "" })
+					),
+				}
+			end,
 			function()
 				local qf = vim.fn.getqflist()
 				if vim.tbl_isempty(qf) then
