@@ -173,6 +173,7 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 - [AI Optimizer — amélioration du harness](skills/ai-optimizer/SKILL.md)
 - [Reviewer — cycle simplify + code-review](skills/reviewer/SKILL.md)
 - [Gestion du vault Obsidian](skills/obsidian-management/SKILL.md)
+- [Déléguer une tâche à une session tmux — commande `/delegue`](commands/delegue.md) — duplique la session courante, range la copie en enfant et lui remet une consigne ; le protocole `autonomous-task` s'applique à l'agent délégué comme à un sous-agent
 - [Documenter un terme — skill `doc` / commande `/doc`](skills/doc/SKILL.md)
 - [Faire un cours sur un sujet — skill `cours` / commande `/cours`](skills/cours/SKILL.md)
 

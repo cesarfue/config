@@ -11,6 +11,17 @@ return {
 		continue_restore_on_error = true,
 		-- Bypass session save when there are errors
 		bypass_save_filetypes = { "alpha", "dashboard", "netrw", "terminal" },
+		pre_save_cmds = {
+			-- Vide la scène de la régie avant l'écriture. Elle affiche un vrai fichier,
+			-- donc son onglet serait enregistré réduit à cette seule fenêtre et
+			-- réapparaîtrait comme un onglet étranger, à côté de la régie que la
+			-- restauration rouvre de son côté.
+			function()
+				pcall(function()
+					require("regie").prepare_save()
+				end)
+			end,
+		},
 		-- Persiste la quickfix list dans la session (auto-session ne le fait pas par défaut).
 		-- La fonction renvoie une commande qui reconstruit la liste, écrite dans le fichier
 		-- de session et rejouée à la restauration.
