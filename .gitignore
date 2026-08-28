@@ -129,3 +129,13 @@ claude/chrome
 kitty/kitty.conf
 NetBird
 obsidian
+
+# Journal d'exécution du récap automatique : sortie de run, pas de la config.
+claude/automation/recap.log
+
+# Données d'applications déposées dans ~/.config, sans rapport avec la config
+# versionnée.
+Vampire_Survivors
+Vampire_Survivors_1414875986
+Vampire_Survivors_Data
+unity3d
