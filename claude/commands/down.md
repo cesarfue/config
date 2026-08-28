@@ -1,6 +1,6 @@
-Confie cette tâche à une session tmux séparée, qui la mènera pendant que la conversation courante continue : $ARGUMENTS
+Descends dans cette tâche : ouvre-lui une session tmux à elle, sous la session courante, et bascule dedans pour la mener : $ARGUMENTS
 
-`sidecar delegate` duplique la session courante — windows et conversation forkée, donc l'agent délégué hérite de tout ce qui vient d'être dit — la range **en enfant** de la session actuelle, et lui remet une consigne de démarrage.
+`sidecar delegate` duplique la session courante — windows et conversation forkée, donc l'agent délégué hérite de tout ce qui vient d'être dit — la range **en enfant** de la session actuelle dans l'arbre de la TUI, lui remet une consigne de démarrage, et y bascule.
 
 ## Déroulé
 
@@ -15,12 +15,12 @@ Confie cette tâche à une session tmux séparée, qui la mènera pendant que la
 4. **Lancer** :
 
    ```bash
-   sidecar delegate --name "<dépôt>/<sujet>" --no-switch "<la consigne>"
+   sidecar delegate --name "<dépôt>/<sujet>" "<la consigne>"
    ```
 
-   `--no-switch` est impératif : sans lui, tmux bascule sur la session déléguée et l'utilisateur perd sa conversation des yeux.
+   tmux bascule alors sur la session créée, et l'utilisateur s'y retrouve devant la conversation forkée, déjà lancée sur la consigne. C'est voulu : on descend dans la tâche. Ajouter `--no-switch` seulement s'il a demandé à rester où il est.
 
-5. **Rendre compte** en une ou deux phrases : le nom de la session créée, son répertoire, et comment y aller (`prefix + f`, ou `tmux switch-client -t <nom>`). Dire aussi que le suivi est passif — `sidecar list` marque « travaille » tant que claude n'a pas fini, mais rien ne préviendra à la fin.
+5. **Rendre compte** en une ou deux phrases, avant la bascule : le nom de la session créée et son répertoire. Rappeler le chemin du retour — `prefix + f` puis la session parente, ou `tmux switch-client -t <parent>` — et que le suivi est passif : `sidecar list` marque « travaille » tant que claude n'a pas fini, mais rien ne préviendra à la fin.
 
 ## Ce qu'il ne faut pas faire
 
