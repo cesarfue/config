@@ -30,7 +30,8 @@ sous-dossier **par type**.
     plans/               ← feuilles de route et specs séquencées (quoi, dans quel ordre)
     presentations/       ← supports destinés à être présentés (decks, plans de slides)
   Notes/                 ← connaissance globale, transférable, à plat
-  Journal/ Templates/ Excalidraw/   ← existant de l'utilisateur — NE PAS toucher
+  Journal/               ← notes périodiques daily/weekly/monthly — voir « Journal » ci-dessous
+  Templates/ Excalidraw/ ← existant de l'utilisateur — n'y gérer que Daily.md, Weekly.md, Monthly.md
 ```
 
 Les sous-dossiers de type ne sont créés **que s'ils ont du contenu** (pas de dossier vide).
@@ -102,6 +103,46 @@ La décision vit **là où est la source de vérité du projet** :
   de `tasks/`, pas dans le hub.
 
 Repère : un projet est « Jira-backé » s'il a un préfixe de ticket et un board ; sinon natif-Obsidian.
+
+## Journal — daily, weekly, monthly
+
+Trois niveaux de notes périodiques, créées par le plugin **periodic-notes** (+ Templater), chacune
+depuis son template dans `Templates/` :
+
+| Niveau  | Chemin (format periodic-notes)              | Exemple                              | Template              |
+|---------|---------------------------------------------|--------------------------------------|-----------------------|
+| Daily   | `Journal/Daily/YYYY/YYYY-MM/YYYY-MM-DD.md`  | `Journal/Daily/2026/2026-08/2026-08-26.md` | `Templates/Daily.md`   |
+| Weekly  | `Journal/Weekly/GGGG/GGGG-[W]WW.md` (semaine ISO) | `Journal/Weekly/2026/2026-W35.md`  | `Templates/Weekly.md`  |
+| Monthly | `Journal/Monthly/YYYY/YYYY-MM.md`           | `Journal/Monthly/2026/2026-08.md`    | `Templates/Monthly.md` |
+
+**Le mécanisme de la vue « clin d'œil »** : chaque weekly porte dans son frontmatter
+`sujets: [<slug>, …]` (les gros sujets de la semaine) et `mois: "YYYY-MM"` (toujours entre
+guillemets, sinon Dataview le lit comme une date). La monthly affiche
+`TABLE sujets FROM "Journal/Weekly" WHERE mois = this.file.name` — une ligne par semaine, ses
+sujets en face. C'est ce tableau qui donne la vue mensuelle ; il ne se remplit pas à la main.
+
+**Règles de contenu, par niveau :**
+
+- **Daily** : 6 lignes maximum, une par sujet, chaque ligne pointant vers la note projet qui porte
+  le détail. Le contenu long (analyse, arbitrage, état des lieux) va dans `projects/<projet>/…`
+  dans le même tour — jamais dans le journal. Pas de section `### Weekly` dans une daily (ancien
+  format, migré le 2026-08-26 vers `Journal/Weekly/` ; les dailies concernées portent un renvoi
+  `→ [[GGGG-Www]]`).
+- **Weekly** : renseigner `sujets:` — des **libellés courts et lisibles** de 2-4 mots, entre
+  guillemets (ex. `"Contrat d'API PRR"`, `"Doctrine des secrets (ACR-219)"`), pas des slugs :
+  c'est ce qui s'affiche dans le tableau mensuel. Réutiliser le même libellé quand un chantier
+  continue d'une semaine à l'autre. Puis 3-5 bullets d'une ligne sous `## Gros sujets`. Le bloc
+  Dataview `## Dailies` liste les dailies de la semaine tout seul.
+- **Monthly** : seul `## Synthèse` s'écrit (3-6 bullets, lors d'un récap mensuel demandé).
+
+Les dailies existantes restent la propriété de l'utilisateur : Claude y écrit le récap du jour
+courant, il ne réécrit pas l'historique.
+
+**Écriture automatique** : une crontab (`50 16 * * 1-5`) lance un Claude headless qui écrit la
+daily chaque jour ouvré à 16h50, et la weekly le jeudi à la suite. Script et prompts dans
+`~/.config/claude/automation/` ; détail dans la note `automatisation-journal` du projet
+claude-config du vault. En session interactive, un récap demandé **complète** la note du jour
+sans supprimer ce que le cron (ou l'utilisateur) y a déjà mis.
 
 ## Réorganiser sans rien casser (méthode)
 
@@ -204,4 +245,10 @@ nouvelle note dans la bonne section.
 - `sed` global sur un nom de ressource abandonné, sans relire les occurrences restantes → les
   mentions volontaires de l'ancien nom (avertissements, arbitrages historiques) se corrigent
   elles-mêmes et perdent leur sens.
-- Toucher `Journal/`, `Templates/`, `Excalidraw/` ; commiter le vault à la place de l'utilisateur.
+- **Contenu projet dans le journal** — une daily qui gonfle en analyse/arbitrage/état des lieux
+  (le symptôme : 190 lignes au lieu de 6). Le détail vit dans `projects/<projet>/…`, la daily n'en
+  garde qu'une ligne-lien.
+- Remplir à la main le tableau `sujets` d'une monthly, ou oublier les guillemets de `mois:` dans
+  une weekly (Dataview le lit alors comme une date et le filtre du mois ne matche plus).
+- Toucher `Excalidraw/`, les templates hors Daily/Weekly/Monthly.md, ou l'historique des dailies ;
+  commiter le vault à la place de l'utilisateur.
