@@ -139,3 +139,8 @@ Vampire_Survivors
 Vampire_Survivors_1414875986
 Vampire_Survivors_Data
 unity3d
+
+# Plugins tmux : TPM les installe lui-même à partir des `set -g @plugin` de
+# tmux.conf, et TPM lui-même est cloné par bootstrap.sh. Les suivre en
+# références de commit sans .gitmodules donnait des dossiers vides au clone.
+tmux/plugins/

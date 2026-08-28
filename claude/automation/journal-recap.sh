@@ -4,11 +4,11 @@
 # que la weekly voit la daily du jour).
 set -euo pipefail
 
-CLAUDE=/home/cesar/.local/bin/claude
-DIR=/home/cesar/.config/claude/automation
+CLAUDE="$HOME/.local/bin/claude"
+DIR="${XDG_CONFIG_HOME:-$HOME/.config}/claude/automation"
 ALLOWED='Read,Glob,Grep,Write,Edit,Bash(git:*),Bash(find:*),Bash(ls:*),Bash(date:*),Bash(head:*),Bash(tail:*),Bash(wc:*),Bash(grep:*)'
 
-cd /home/cesar
+cd "$HOME"
 
 echo "=== $(date -Iseconds) — récap daily ==="
 "$CLAUDE" -p "$(cat "$DIR/daily-recap-prompt.md")" \
