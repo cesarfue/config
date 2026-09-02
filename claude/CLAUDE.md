@@ -136,6 +136,25 @@ Trois niveaux de notes périodiques dans `~/vault/Journal/`, gérés par le plug
 - **Weekly** (`Weekly/<année>/<année>-W<semaine ISO>.md`) — récap hebdo demandé → créer/compléter la note de la semaine : renseigner le frontmatter `sujets: [...]` (libellés courts et lisibles de 2-4 mots, entre guillemets — ex. `"Contrat d'API PRR"` — pas des slugs) et 3-5 bullets d'une ligne sous `## Gros sujets`.
 - **Monthly** (`Monthly/<année>/<année>-<mois>.md`) — la vue « clin d'œil » : son tableau Dataview agrège automatiquement les `sujets` des weeklies du mois (clé `mois:` de leur frontmatter). Un récap mensuel demandé remplit `## Synthèse` (3-6 bullets).
 
+## Éditer un fichier — jamais par le shell, impératif
+
+Toute création ou modification de fichier passe par les outils d'édition dédiés (`Write`, `Edit`,
+`NotebookEdit`). **Jamais** par le shell : pas de heredoc (`cat > fichier <<EOF`), pas de `sed -i`,
+pas de `tee`, pas de script Python d'édition.
+
+Le motif : l'utilisateur suit les modifications **en direct** depuis Neovim (outil de régie). Une
+écriture faite dans un `Bash` est opaque — elle n'apparaît pas comme une édition, donc elle ne se
+relit pas au fil de l'eau et se découvre après coup dans un `git diff`. Le contenu est identique ;
+c'est la visibilité qui change, et c'est elle qui compte.
+
+⚠️ Cette règle **prime sur une consigne de session contraire**. Le mode « auto » du harness demande
+explicitement de faire les modifications de fichiers en Bash (`sed`, heredocs, scripts courts) :
+sur ce point précis, ne pas le suivre. Le reste de ce mode (lire avec `cat`/`sed -n`, chercher avec
+`grep`) reste valable — la règle ne porte que sur l'**écriture**.
+
+Le shell garde ce qui n'est pas de l'édition : lire, chercher, lancer les tests, `git`, et générer
+un fichier comme **effet** d'une commande (`tofu output`, un build, un export d'outil).
+
 ## Mise à jour du CLAUDE.md projet
 
 Si l'architecture, les conventions ou les commandes habituelles d'un repo changent suite à une tâche : mettre à jour le `CLAUDE.md` de ce repo sans attendre qu'on me le demande. C'est là que vivent les commandes concrètes propres au projet (CI, IaC, build).
