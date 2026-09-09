@@ -175,6 +175,9 @@ git commit -m "<type>(<scope>): description courte"
 ```
 
 Pas de trailer `Co-Authored-By` (cf. `rules/git-commits.md`).
+**Entre l'indexation et le commit, passer le contrôle de `rules/commentaires-de-code.md`**
+(§ « Contrôle impératif avant chaque commit ») : une sortie non vide interdit le commit,
+et les deux seules issues sont de retirer les lignes ou de s'arrêter et demander.
 **Ne jamais passer à l'étape suivante sans avoir commité.** C'est l'étape que les agents
 ratent le plus souvent. Préférer plusieurs petits commits logiques à un gros dump.
 
@@ -272,13 +275,18 @@ Pas de worktree à créer, pas de base à recalculer.
 4. DEV : utilise le skill `karpathy-guidelines` pour tout le code. Invoque-le réellement.
    Profil infra : ajoute l'addendum infra (idempotence, moindre privilège, aucun secret
    en clair, `plan` avant tout, jamais d'`apply`).
+   LIVRABLE DOCUMENTAIRE (runbook, ADR, doc de dépôt, README, note de référence) : lis
+   d'abord `~/.claude/skills/style-reponse/SKILL.md` en entier et applique sa section
+   « Le registre documentaire » — pas de narration, pas d'emphase, pas d'étiquette codée,
+   des phrases. Une liste de contraintes de forme dans le prompt ne remplace pas le skill.
 5. CHECKS DU PROFIL :
    - Code : `/simplify` puis `/code-review` (traite chaque retour), puis la CI locale du
      repo (commandes dans son CLAUDE.md). Montre la sortie.
    - Infra : validate+fmt+lint, `plan` vérifié conforme (joins-le au compte rendu), scan
      statique (tfsec/checkov/trivy), revue de sécurité. Montre la sortie.
-6. COMMIT : `git add -A` ; `git diff --cached --stat` ; commit. Jamais sur `main`, pas de
-   Co-Authored-By.
+6. COMMIT : `git add -A` ; `git diff --cached --stat` ; le contrôle de commentaires de
+   `rules/commentaires-de-code.md`, qui doit rendre ZÉRO ligne et interdit le commit
+   sinon ; puis commit. Jamais sur `main`, pas de Co-Authored-By.
 7. PUSH : pousse ta branche (`git push -u origin <branche>`). N'ouvre PAS de PR toi-même —
    l'orchestrateur décide selon repos.md.
 8. RAPPORT : dans `## Compte rendu` — fichiers, décisions, écarts, résultats des checks,
@@ -317,3 +325,8 @@ concerné : ni worktree, ni branche, ni checks.
 - Lancer des sous-agents sur Fable par héritage silencieux du modèle de session → coût
   injustifié ; expliciter `model: "opus"` (défaut), Fable réservé aux tâches critiques /
   à forte réflexion, sur décision explicite.
+- Committer alors que le contrôle de commentaires de `rules/commentaires-de-code.md` sort
+  des lignes, en signalant l'écart dans la réponse → l'utilisateur reçoit un fait accompli
+  au lieu d'une décision. Le contrôle est bloquant : retirer, ou s'arrêter et demander.
+  Vécu deux fois d'affilée le 2026-09-09, la seconde tâche étant quatre fois pire que la
+  première — la pression du style d'un dépôt très commenté ne s'atténue pas d'elle-même.

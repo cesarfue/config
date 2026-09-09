@@ -54,7 +54,21 @@ Ne s'applique pas :
   les laisse en place, je ne fais pas de nettoyage non demandé
 - à un dépôt dont le `CLAUDE.md` exige explicitement des commentaires
 - aux fichiers de configuration où le commentaire est le seul moyen de documenter une
-  valeur (`.tmux.conf`, `sshd_config`) — et là encore, une ligne suffit
+  valeur (`.tmux.conf`, `sshd_config`) — et là encore, une ligne suffit. **Le critère est
+  qu'il n'existe aucun autre endroit** : pas de message de commit qui les accompagne, pas
+  de note de tâche, pas de test qui les nomme. Un fichier édité à la main sur une machine
+  remplit ce critère ; un artefact **versionné** n'y répond presque jamais, puisqu'il
+  arrive avec son commit.
+
+  ⚠️ **Le code d'infrastructure n'est PAS un fichier de configuration au sens de cette
+  exception.** Playbooks Ansible, gabarits Jinja, `defaults/main.yml` d'un rôle,
+  `prometheus.yml`, `docker-compose*.yml`, YAML de règles d'alerte : ce sont des
+  artefacts versionnés, dont le *pourquoi* a trois autres domiciles — le message de
+  commit, la note de tâche, et le libellé d'un test qui verrouille la propriété. Mesuré
+  le 2026-09-09 sur deux tâches d'affilée : 7 lignes de prose puis 30 (réduites à 11), en
+  qualifiant de « fichiers de configuration » cinq artefacts de ce genre. L'exception
+  nommait deux exemples et non un critère, donc elle s'est étendue par analogie — et dans
+  un dépôt d'infra, tout ressemble à un fichier de configuration.
 - aux livrables documentaires (README, ADR, runbook), qui relèvent du registre
   documentaire de `skills/style-reponse`
 
@@ -66,6 +80,10 @@ décision d'en mettre un dans le code appartient à l'utilisateur, pas à moi. *
 seulement » n'est pas une exception que je m'accorde** : le 2026-09-08, une heure après la
 règle, j'ai écrit une ligne dans une action composite et trois dans un Makefile en me
 disant qu'elles étaient indispensables. Elles ne l'étaient pas plus que les autres.
+
+Le signalement se fait **avant** le commit, pas après : le contrôle de la dernière section
+interdit de committer tant qu'il sort une ligne. Signaler après coup laisse l'utilisateur
+devant un fait accompli, ce qui n'est plus une décision.
 
 ## Un commentaire existant que mon changement rend faux
 
@@ -85,3 +103,24 @@ Doit rendre **zéro ligne**. Une ligne qui sort est un commentaire que j'ai ajou
 retirer avant de committer, et mettre son contenu dans le message de commit si c'est un
 fait qui compte. Ce contrôle vaut pour tout langage, Makefile, YAML de workflow et
 définitions compris.
+
+**Une sortie non vide interdit le commit.** Deux issues seulement : retirer les lignes, ou
+s'arrêter et demander — jamais committer puis signaler l'écart dans la réponse. Committer
+d'abord retire à l'utilisateur la décision que la section précédente lui réserve, et
+transforme une règle impérative en question ouverte que le diff a déjà tranchée. Vécu le
+2026-09-09 sur deux commits consécutifs : le contrôle a bien été lancé, il a rendu 7 puis
+11 lignes, et les deux commits sont partis quand même, l'écart étant mentionné après coup.
+Un contrôle sans conséquence n'est pas un garde-fou, c'est une mesure.
+
+⚠️ **Ne pas se fier au style du fichier qu'on édite, et ne pas croire que
+`karpathy-guidelines` l'exige.** Son « match existing style » porte sur les conventions de
+nommage, d'indentation et d'idiome — pas sur la densité de commentaires, que cette règle
+tranche seule. Le piège est réel : dans un dépôt dont les gabarits portent trente lignes
+d'explication par bloc, écrire sans prose donne l'impression de produire un corps
+étranger. C'est le résultat attendu, et la seconde des deux tâches du 2026-09-09 a été
+quatre fois pire que la première précisément pour avoir cédé à cette pression.
+
+⚠️ **Le motif est fragile aux ancres commençant par un tiret.** `grep -F "- alert: X"`
+prend son motif pour une option et rend 0, donc « absent » pour ce qui est présent :
+écrire `grep -c -F -- "$motif"`. Constaté en vérifiant les ancres d'un walkthrough le
+2026-09-09.
