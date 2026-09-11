@@ -1,0 +1,38 @@
+#!/bin/sh
+set -eu
+
+COULEURS='red green yellow blue magenta cyan'
+
+prise() {
+    printf %s "$2" | grep -qxF "$1"
+}
+
+teintes_des_autres() {
+    tmux list-sessions -F '#{session_name}:#{@teinte}' 2>/dev/null |
+        while IFS=: read -r nom teinte; do
+            [ "$nom" = "$1" ] || [ -z "$teinte" ] || printf '%s\n' "$teinte"
+        done
+}
+
+teindre() {
+    autres=$(teintes_des_autres "$1")
+    actuelle=$(tmux show-options -qv -t "=$1:" @teinte || true)
+    if [ -n "$actuelle" ] && ! prise "$actuelle" "$autres"; then
+        return
+    fi
+    for couleur in $COULEURS; do
+        if ! prise "$couleur" "$autres"; then
+            tmux set-option -t "=$1:" @teinte "$couleur"
+            return
+        fi
+    done
+    tmux set-option -t "=$1:" @teinte red
+}
+
+if [ $# -gt 0 ] && [ -n "$1" ]; then
+    teindre "$1"
+else
+    tmux list-sessions -F '#{session_name}' | while IFS= read -r nom; do
+        teindre "$nom"
+    done
+fi
