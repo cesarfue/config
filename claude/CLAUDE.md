@@ -10,6 +10,17 @@ Ce style réduit l'**effort de lecture**, jamais la **quantité d'information**.
 
 Une question exploratoire ou une demande d'avis obtient une réponse courte dès le premier tour (recommandation + principal compromis), jamais une revue exhaustive par anticipation. Et une question qui résume l'essentiel en une hypothèse courte (« c'est pas plus compliqué que ça, si ? ») signale souvent que l'explication précédente était déjà trop chargée : la réponse confirme ou corrige en une ou deux phrases, elle ne rallonge pas — voir « Une demande de précision peut être une demande de simplification » dans `style-reponse`.
 
+### Invoquer le skill, pas s'en souvenir — impératif
+
+Les trois paragraphes ci-dessus sont un résumé. Le skill `style-reponse` porte le détail : le calibrage par registre, les exemples avant/après, et la section « Le registre documentaire » qui n'a aucun équivalent ici. Un résumé relu de mémoire dérive au fil de la session ; le fichier, lui, ne dérive pas.
+
+Donc **invoquer réellement le skill** — l'outil `Skill`, ou à défaut la lecture de `skills/style-reponse/SKILL.md` — dans ces deux cas :
+
+- **À la première explication de fond de la session**, c'est-à-dire dès que je rédige autre chose qu'une confirmation d'une ligne ou une sortie d'outil brute : explication technique, diagnostic, état des lieux, comparatif, réponse à un « pourquoi » ou à un « comment ça marche ».
+- **Avant tout livrable écrit destiné à quelqu'un qui n'a pas suivi la conversation** : description de pull request, corps de message de commit, ADR, README, runbook, doc de dépôt, note du vault, compte rendu de tâche. Cela vaut **que le travail passe ou non par le protocole `autonomous-task`** — une PR ouverte à la volée en séance est soumise à la même exigence que celle qu'ouvre un agent en autonomie.
+
+Une fois invoqué, le contenu reste en contexte pour la suite de la session : il n'y a pas à le recharger à chaque tour. Le ré-invoquer en revanche après une compaction du contexte, et avant un livrable documentaire si sa section « Le registre documentaire » n'est plus sous les yeux — c'est celle qui s'oublie en premier, et son oubli se voit immédiatement, sous forme de narration de la découverte, de « je » et de gras d'insistance dans un document qui ne devrait en porter aucun.
+
 ## Honnêteté factuelle (règle critique)
 
 Ne jamais inventer, supposer ou extrapoler des informations qui ne figurent pas dans les sources primaires (code, tickets, ADR, docs versionnés, fichiers du repo, output d'outils). Cela s'applique à :
@@ -163,6 +174,23 @@ Si l'architecture, les conventions ou les commandes habituelles d'un repo change
 
 La mémoire comportementale (`~/.claude/projects/<encoded>/memory/`) est distincte du vault. Elle stocke le *comment* collaborer : préférences de l'utilisateur, corrections de feedback, approches rejetées. Ces éléments ne vont jamais dans le vault — ils sont privés et chargés automatiquement chaque session. Le vault stocke le *quoi* (ce sur quoi on travaille) ; la mémoire stocke le *comment* (la façon de travailler avec l'utilisateur).
 
+## Interroger tmux — passer par sidecar
+
+Pour savoir quelles sessions existent, où elles travaillent et ce qui tourne dedans, lancer
+`sidecar list --json` plutôt que d'écrire un script. Un seul appel rend l'arbre complet : par nœud
+son répertoire, sa nature (dossier, dépôt, worktree), son dépôt d'origine, sa branche, s'il est
+vivant, si claude y travaille — sous-agents compris — et la conversation connue ; puis ses windows
+avec leurs panes, chacun avec son identifiant tmux, sa commande, son répertoire et son pid.
+
+L'intérêt n'est pas la vitesse mais la justesse. Trois recoupements y sont déjà faits, et ce sont
+ceux qu'un script écrit sur le moment rate : `pane_current_command` rend « zsh » quand claude tourne
+sous un shell — d'où le champ `claude` de chaque pane, calculé sur la descendance des processus —,
+la branche se lit dans les fichiers du dépôt plutôt que par un sous-processus, et l'activité d'un
+sous-agent ne se voit qu'au mouvement de ses compteurs, donc entre deux relevés.
+
+Ce que sidecar ignore reste du ressort de tmux : les sessions d'un autre serveur, et les processus
+hors tmux.
+
 ## Processus et serveurs partagés — impératif
 
 Ne jamais arrêter un processus par son PID (`kill`, `pkill`, `killall`) quand l'outil offre un
@@ -185,7 +213,8 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 
 - [Commits et utilisation git](rules/git-commits.md)
 - [Implémentation](rules/implementation.md)
-- [Style d'écriture — réponses **et** documentation](skills/style-reponse/SKILL.md) — les deux registres ne s'écrivent pas pareil ; un ADR, une doc de dépôt ou une note de référence se lisent sans le contexte de la conversation qui les a produits (cf. § « Le registre documentaire »)
+- [Commentaires dans le code — n'en écrire aucun](rules/commentaires-de-code.md) — seules les annotations exploitées par l'outillage (`---@param`, types) ; ce que j'aurais commenté va dans un nom, une note de régie, le message de commit ou le vault
+- [Style d'écriture — réponses **et** documentation](skills/style-reponse/SKILL.md) — **invocation obligatoire**, cf. § « Invoquer le skill, pas s'en souvenir » ; les deux registres ne s'écrivent pas pareil ; un ADR, une doc de dépôt ou une note de référence se lisent sans le contexte de la conversation qui les a produits (cf. § « Le registre documentaire »)
 - [Tâches autonomes — protocole](rules/autonomous-task.md)
 - [Repos — profil et politique de PR](rules/repos.md)
 - [Product Owner — définition de tâche](skills/product-owner/SKILL.md)
@@ -195,6 +224,7 @@ Les règles spécifiques vivent dans `~/.claude/rules/`. Référencées ici par 
 - [Descendre dans une tâche — commande `/down`](commands/down.md) — duplique la session courante, range la copie en enfant et lui remet une consigne ; le protocole `autonomous-task` s'applique à l'agent délégué comme à un sous-agent
 - [Documenter un terme — skill `doc` / commande `/doc`](skills/doc/SKILL.md)
 - [Faire un cours sur un sujet — skill `cours` / commande `/cours`](skills/cours/SKILL.md)
+- [Annoter un changement plutôt que le commenter — skill `regie-note`](skills/regie-note/SKILL.md) — quand la régie est ouverte, ce qui explique le *passage d'un état à un autre* va en note affichée à côté du code (`regie-note`), pas en commentaire dans le fichier ; le *pourquoi durable*, lui, reste dans le code
 
 ## Règles auto-évolutives — impératif
 
