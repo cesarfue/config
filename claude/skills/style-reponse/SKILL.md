@@ -4,9 +4,9 @@ description: >-
   Manière d'écrire — en conversation ET en documentation. À appliquer dès que tu rédiges une
   explication technique, un récap de travail, un compte-rendu, un plan, un résumé d'état, ou toute
   réponse de fond destinée à être lue — pas seulement exécutée. À appliquer AUSSI pour tout
-  document de référence : ADR, doc de dépôt, README, contrat d'API, note de vault, description de
-  pull request, corps de message
-  de commit. Ces deux registres ne s'écrivent PAS pareil : un document est lu par quelqu'un qui n'a
+  document de référence : ADR, doc de dépôt, README, contrat d'API, note de référence, compte rendu
+  de tâche, description de pull request, corps de message de commit. Ces deux registres ne s'écrivent
+  PAS pareil : un document est lu par quelqu'un qui n'a
   pas suivi la conversation, donc sans narration de la découverte, sans méta-commentaire, sans
   emphase rhétorique et sans « je » — voir la section « Le registre documentaire ». Garantit un
   français en phrases complètes, un ton posé et « lisse », l'absence de jargon non expliqué et
@@ -141,14 +141,16 @@ que si l'utilisateur le redemande explicitement — jamais par anticipation, au 
 
 Les registres ci-dessus sont **conversationnels** : ils s'adressent à l'utilisateur, dans un fil, à
 un moment donné. Un **document de référence** ne l'est pas. ADR, doc de dépôt, README, contrat
-d'API, note de référence du vault, corps d'un message de commit, **description de pull request** :
-le lecteur est **inconnu, futur, et n'a pas suivi l'échange qui a produit le document**.
+d'API, note de référence, compte rendu de tâche, corps d'un message de commit, **description de
+pull request** : le lecteur est **inconnu, futur, et n'a pas suivi l'échange qui a produit le
+document**.
 
 Cette liste est un rappel, pas une définition. Le critère est le lecteur, pas le support : dès qu'un
-texte sera lu par quelqu'un qui n'a pas suivi la conversation, il relève de ce registre. Le cas de la
-description de PR l'a montré — absente de la liste, elle a été rédigée comme un message de chat alors
-qu'elle est lue par un relecteur qui ne connaît ni la demande initiale ni le chemin parcouru. Devant
-un support non listé, appliquer le critère plutôt que chercher son nom ici.
+texte sera lu par quelqu'un qui n'a pas suivi la conversation, il relève de ce registre. La
+description de pull request en est le cas le plus piégeux : elle s'écrit dans la foulée de l'échange
+qui l'a produite, ce qui pousse à la rédiger comme un message de chat, alors que son lecteur est un
+relecteur qui ne connaît ni la demande initiale ni le chemin parcouru. Devant un support non listé,
+appliquer le critère plutôt que chercher son nom ici.
 
 Le fond ne change pas — noms exacts, chiffres, mécanisme causal, alternatives écartées et leur
 motif, limites de ce qui est vérifié : tout reste. C'est la **forme** qui change, et quatre
@@ -214,7 +216,7 @@ sinon il demandera « oui mais concrètement, quel fichier, quelle commande ? »
 
 ### Trop dense — à ne pas produire
 
-Ce type de fin de session a été signalé comme exactement ce qu'il ne faut pas faire :
+Une fin de session écrite sur ce modèle, à ne pas produire :
 
 > Reste à faire (un seul commit atomique, prochaine session focalisée)
 > 1. auth-service : middleware refresh + rotation, invalidation côté store…
@@ -222,8 +224,8 @@ Ce type de fin de session a été signalé comme exactement ce qu'il ne faut pas
 > Dis-moi quand tu veux reprendre l'extraction — ou si tu préfères que je termine l'atomique
 > maintenant malgré tout.
 
-Réaction reçue : « ça veut dire quoi quand tu dis "reprends l'atomique" ? parle-moi simplement ». Tout
-est en liste, le vocabulaire n'est pas expliqué, et le ton est celui d'un statut de projet plutôt que
+Le lecteur ne peut pas agir sans demander ce que veut dire « reprends l'atomique ». Tout est en
+liste, le vocabulaire n'est pas expliqué, et le ton est celui d'un statut de projet plutôt que
 d'une explication adressée à quelqu'un.
 
 ### Trop dilué — à ne pas produire non plus
