@@ -44,3 +44,19 @@ une branche : elle isole les checks, et son absence de PR ne dispense d'aucun d'
 |---------------------|--------|
 | regie.nvim | repo perso, seul contributeur |
 | sidecar | repo perso, seul contributeur |
+| alaboardage | repo perso, seul contributeur |
+
+## 4. Revue allégée — pas de `/simplify` ni de `/code-review`
+
+Repos où l'étape 4 du protocole `autonomous-task.md` se réduit à la CI locale : le lint, les tests et
+le typecheck du dépôt tournent comme partout, mais les cycles de revue par agents sont supprimés.
+Le motif est le rapport entre le coût de la revue et l'enjeu du dépôt — un projet solo, sans
+relecteur ni contrainte de production partagée, où quatre agents sur un diff de neuf lignes coûtent
+plus que ce qu'ils rapportent.
+
+Le reste du protocole ne change pas : branche depuis `origin/main`, contrôle de commentaires avant
+le commit, commit et push systématiques, compte rendu dans la note de tâche.
+
+| Repo (nom ou motif) | Raison |
+|---------------------|--------|
+| alaboardage | projet solo, demande explicite du 2026-09-15 |

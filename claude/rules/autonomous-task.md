@@ -137,6 +137,10 @@ karpathy-guidelines (dev) → /simplify → /code-review → CI locale du repo
   format, typecheck, tests, build…). Les **commandes exactes sont dans le `CLAUDE.md` du
   repo**, pas ici. Tout doit passer avant le commit.
 
+Avant de lancer `/simplify` et `/code-review`, consulter la table « Revue allégée » de
+`rules/repos.md` : les repos qui y figurent sautent ces deux cycles et s'en tiennent à la CI
+locale. Un projet solo n'amortit pas quatre agents de revue sur un diff de quelques lignes.
+
 ### Profil « infrastructure »
 
 ```
