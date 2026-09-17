@@ -47,6 +47,11 @@ bindkey '^X^E' edit-command-line
 
 alias jira-sync="python3 ~/vault/scripts/jira_sync.py"
 
+# Puppeteer : le Chrome téléchargé dans ~/.cache/puppeteer n'a pas de profil AppArmor,
+# et kernel.apparmor_restrict_unprivileged_userns=1 lui interdit son bac à sable.
+# Le Chrome système, lui, est profilé dans /etc/apparmor.d/chrome.
+export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
+
 # Secrets — dans ~/.zsh_secrets, hors du dépôt de config. Jamais versionnés ici.
 [ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
 
