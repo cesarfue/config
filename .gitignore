@@ -133,6 +133,11 @@ obsidian
 # Journal d'exécution du récap automatique : sortie de run, pas de la config.
 claude/automation/recap.log
 
+# État local du récap automatique : récaps restant à rejouer sur cette machine,
+# et verrou d'exécution. Sans signification sur un autre poste.
+claude/automation/pending.txt
+claude/automation/.lock
+
 # Données d'applications déposées dans ~/.config, sans rapport avec la config
 # versionnée.
 Vampire_Survivors
@@ -144,3 +149,57 @@ unity3d
 # tmux.conf, et TPM lui-même est cloné par bootstrap.sh. Les suivre en
 # références de commit sans .gitmodules donnait des dossiers vides au clone.
 tmux/plugins/
+
+# Skills installés hors du dépôt : liens symboliques vers ~/.agents/skills/,
+# posés par le skill setup-matt-pocock-skills. Git n'enregistrerait que le
+# chemin de destination, donc un clone sur une machine neuve n'aurait que des
+# liens morts. Les skills maison, eux, restent versionnés.
+claude/skills/ask-matt
+claude/skills/claude-handoff
+claude/skills/code-review
+claude/skills/codebase-design
+claude/skills/diagnosing-bugs
+claude/skills/domain-modeling
+claude/skills/git-guardrails-claude-code
+claude/skills/grill-me
+claude/skills/grill-with-docs
+claude/skills/grilling
+claude/skills/handoff
+claude/skills/implement
+claude/skills/implement-spec
+claude/skills/improve-codebase-architecture
+claude/skills/loop-me
+claude/skills/migrate-to-shoehorn
+claude/skills/prototype
+claude/skills/research
+claude/skills/resolving-merge-conflicts
+claude/skills/retro
+claude/skills/scaffold-exercises
+claude/skills/setup-matt-pocock-skills
+claude/skills/setup-pre-commit
+claude/skills/setup-ts-deep-modules
+claude/skills/tdd
+claude/skills/teach
+claude/skills/to-questionnaire
+claude/skills/to-spec
+claude/skills/to-tickets
+claude/skills/triage
+claude/skills/wait-what
+claude/skills/wayfinder
+claude/skills/wizard
+claude/skills/writing-beats
+claude/skills/writing-for-agents
+claude/skills/writing-fragments
+claude/skills/writing-shape
+
+# Cache des skills synchronisés depuis le compte Claude : dossiers nommés par
+# identifiant d'organisation, retéléchargés par Claude Code. Pas de la config
+# écrite ici.
+claude/skills/synced/
+
+# Rapports de plantage déposés par Chrome for Testing (Puppeteer) : données
+# d'exécution, pas de la config.
+google-chrome-for-testing/
+
+# Bytecode Python compilé, produit par le script de badge de session kitty.
+__pycache__/
