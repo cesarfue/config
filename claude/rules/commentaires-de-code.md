@@ -104,6 +104,16 @@ retirer avant de committer, et mettre son contenu dans le message de commit si c
 fait qui compte. Ce contrôle vaut pour tout langage, Makefile, YAML de workflow et
 définitions compris.
 
+⚠️ **Le contrôle doit être câblé bloquant, pas décoratif.** Le motif
+`(grep … && echo "STOP" || echo "OK") && git commit` affiche STOP puis **commite quand
+même** : la branche du `&&` sort en code 0. Vécu le 2026-09-15. Câblage correct :
+`! (git diff --cached -U0 | grep -E … | grep -vE …) && git commit …` — le grep qui
+matche fait échouer la chaîne.
+
+**Faux positifs Typst** : `#let`, `#import`, `#lettre(`, `#v(` sont de la syntaxe, pas
+des commentaires (en Typst, les commentaires sont `//` et `/* */`). Sur des fichiers
+`.typ`, exclure les lignes `^\+#[a-z]` du contrôle, ou restreindre le grep aux `//`.
+
 **Une sortie non vide interdit le commit.** Deux issues seulement : retirer les lignes, ou
 s'arrêter et demander — jamais committer puis signaler l'écart dans la réponse. Committer
 d'abord retire à l'utilisateur la décision que la section précédente lui réserve, et

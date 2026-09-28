@@ -60,3 +60,4 @@ le commit, commit et push systématiques, compte rendu dans la note de tâche.
 | Repo (nom ou motif) | Raison |
 |---------------------|--------|
 | alaboardage | projet solo, demande explicite du 2026-09-15 |
+| resume | repo perso, seul contributeur ; dev local — cycle `/simplify` + `/code-review` sauté (décidé le 2026-09-14), build + lint conservés |

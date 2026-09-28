@@ -57,6 +57,16 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	group = augroup("resume_json_wrap"),
+	pattern = "*/resume/public/resume.json",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.breakindent = true
+	end,
+})
+
 -- Avoid Nvim 0.12-dev "yield across C-call boundary" when notify redraws trigger TS parse
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("notify_no_ts"),
